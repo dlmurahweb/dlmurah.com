@@ -51,18 +51,18 @@ dan menjalankan build produksi pada port 3100.
 
 Salin `.env.example` menjadi `.env.local`. Jangan commit token atau secret.
 
-| Variable                          | Visibilitas | Keterangan                                     |
-| --------------------------------- | ----------- | ---------------------------------------------- |
-| `CONTENTFUL_SPACE_ID`             | Server      | Space ID Contentful, digunakan mulai Phase 2   |
-| `CONTENTFUL_ACCESS_TOKEN`         | Server      | Delivery API token                             |
-| `CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Server      | Preview API token opsional                     |
-| `CONTENTFUL_ENVIRONMENT`          | Server      | Environment Contentful, default `master`       |
-| `CONTENTFUL_LOCALE`               | Server      | Locale Delivery API, disarankan `id-ID`        |
-| `CONTENTFUL_PREVIEW_SECRET`       | Server      | Secret untuk preview mode                      |
-| `CONTENTFUL_REVALIDATE_SECRET`    | Server      | Secret webhook revalidation                    |
-| `CONTENTFUL_MANAGEMENT_TOKEN`     | Tool lokal  | Token untuk menjalankan provisioning           |
-| `NEXT_PUBLIC_SITE_URL`            | Publik      | Origin kanonis, misalnya `https://dlmurah.com` |
-| `NEXT_PUBLIC_GA_ID`               | Publik      | ID Google Analytics opsional                   |
+| Variable                          | Visibilitas | Keterangan                                   |
+| --------------------------------- | ----------- | -------------------------------------------- |
+| `CONTENTFUL_SPACE_ID`             | Server      | Space ID Contentful, digunakan mulai Phase 2 |
+| `CONTENTFUL_ACCESS_TOKEN`         | Server      | Delivery API token                           |
+| `CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Server      | Preview API token opsional                   |
+| `CONTENTFUL_ENVIRONMENT`          | Server      | Environment Contentful, default `master`     |
+| `CONTENTFUL_LOCALE`               | Server      | Locale Delivery API, disarankan `id-ID`      |
+| `CONTENTFUL_PREVIEW_SECRET`       | Server      | Secret untuk preview mode                    |
+| `CONTENTFUL_REVALIDATE_SECRET`    | Server      | Secret webhook revalidation                  |
+| `CONTENTFUL_MANAGEMENT_TOKEN`     | Tool lokal  | Token untuk menjalankan provisioning         |
+| `NEXT_PUBLIC_SITE_URL`            | Publik      | Origin kanonis: `https://www.dlmurah.com`    |
+| `NEXT_PUBLIC_GA_ID`               | Publik      | ID Google Analytics opsional                 |
 
 Semua variable divalidasi dengan Zod. Kredensial Contentful tidak menggunakan
 prefix `NEXT_PUBLIC_`, sehingga tetap berada di server.

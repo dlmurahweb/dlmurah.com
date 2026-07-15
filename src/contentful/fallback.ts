@@ -37,7 +37,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     defaultSeoTitle: "DLMURAH — Jual Beli DL, BGL, dan Akun",
     defaultSeoDescription:
       "Hubungi admin DLMURAH untuk layanan jual beli DL/BGL, transaksi akun, dan informasi terbaru melalui WhatsApp.",
-    siteUrl: "https://dlmurah.com",
+    siteUrl: "https://www.dlmurah.com",
     footerDisclaimer: disclaimer,
     copyrightText: "© DLMURAH. Seluruh hak cipta dilindungi.",
   },

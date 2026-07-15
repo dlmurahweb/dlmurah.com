@@ -20,7 +20,7 @@ const serverEnvSchema = z.object({
   CONTENTFUL_LOCALE: optionalText,
   CONTENTFUL_PREVIEW_SECRET: optionalText,
   CONTENTFUL_REVALIDATE_SECRET: optionalText,
-  NEXT_PUBLIC_SITE_URL: optionalUrl.default("https://dlmurah.com"),
+  NEXT_PUBLIC_SITE_URL: optionalUrl.default("https://www.dlmurah.com"),
   NEXT_PUBLIC_GA_ID: optionalText,
 });
 
