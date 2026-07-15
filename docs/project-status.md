@@ -13,7 +13,7 @@ Terakhir diperbarui: 15 Juli 2026
 | 5 — Assets and Animation     | Selesai                             | [`005-phase-5-assets-motion.md`](./iterations/005-phase-5-assets-motion.md)                   |
 | 6 — SEO, Analytics, Policies | Selesai                             | [`006-phase-6-seo-analytics-policies.md`](./iterations/006-phase-6-seo-analytics-policies.md) |
 | 7 — Quality Assurance        | Selesai                             | [`007-phase-7-quality-assurance.md`](./iterations/007-phase-7-quality-assurance.md)           |
-| 8 — Deployment               | Lokal selesai; akses blocked        | [`008-phase-8-deployment-handoff.md`](./iterations/008-phase-8-deployment-handoff.md)         |
+| 8 — Deployment               | Production live; integrasi tertunda | [`009-production-release.md`](./iterations/009-production-release.md)                         |
 
 ## Kondisi saat ini
 
@@ -24,9 +24,9 @@ Terakhir diperbarui: 15 Juli 2026
 - Metadata dinamis, JSON-LD, social cards, robots, sitemap, manifest, policy
   pages, 404, dan event analytics telah tersedia.
 - Empat unit test dan 19 E2E/accessibility/responsive test tersedia.
-- Lighthouse final: mobile 90/100/100/100 dan desktop 100/100/100/100.
-- Release tersimpan pada commit lokal `c8ba7e8`, tetapi push ditolak 403 karena
-  credential aktif tidak memiliki write access ke repository `dlmurahweb`.
+- Lighthouse produksi: mobile 97/100/100/100 dan desktop 100/100/100/100.
+- Production release tersedia di `https://www.dlmurah.com`; Playwright produksi
+  19/19 lulus.
 - Konfigurasi `allowBuilds` untuk `sharp` dan `unrs-resolver` telah diperbaiki.
 - Delivery dan Preview token tersedia pada environment lokal, tetapi content
   model belum ada pada space (`unknownContentType`).
@@ -37,10 +37,8 @@ Terakhir diperbarui: 15 Juli 2026
 
 - Kredensial Contentful untuk membuat model/entry pada space produksi.
 - Nomor WhatsApp, tautan saluran, statistik, dan klaim bisnis yang disetujui.
-- Akses Vercel/GitHub bila verifikasi deployment tidak dapat dilakukan melalui
-  sesi lokal.
+- Akses project Vercel untuk preview/revalidation secret dan webhook.
 - Aktivasi Web Analytics pada project Vercel.
-- Domain dan DNS final.
 
 Pekerjaan lokal yang tidak membutuhkan akses tersebut tetap dilanjutkan dengan
 fallback yang aman dan tooling provisioning yang dapat dijalankan ulang.

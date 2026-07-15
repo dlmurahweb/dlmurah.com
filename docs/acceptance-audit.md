@@ -2,7 +2,7 @@
 
 Tanggal audit: 15 Juli 2026
 
-## Lulus pada kode/build lokal
+## Lulus pada kode dan produksi
 
 - Responsive mobile, tablet, dan desktop pada seluruh breakpoint target.
 - Service/admin/channel model dan mapping bertipe tersedia.
@@ -20,19 +20,21 @@ Tanggal audit: 15 Juli 2026
 - Production build berhasil.
 - Lighthouse memenuhi target proyek.
 - Panduan CMS dan deployment tersedia.
+- Release baru tersedia di `https://www.dlmurah.com` dengan SSL dan redirect
+  apex yang benar.
+- Production Playwright 19/19 lulus.
 
 ## Menunggu akses/data eksternal
 
 | Kriteria                                                  | Status  | Kebutuhan untuk selesai                               |
 | --------------------------------------------------------- | ------- | ----------------------------------------------------- |
-| Release baru ter-deploy pada domain                       | Blocked | Push access ke `dlmurahweb/dlmurah.com`               |
 | Content model tersedia pada space produksi                | Blocked | Management token yang memiliki akses ke space DLMURAH |
 | Pemilik dapat mengubah nomor/link melalui Contentful      | Blocked | Provisioning model lalu uji publish                   |
 | Nomor admin nyata dan prefilled message produksi          | Blocked | Data bisnis terverifikasi pemilik                     |
 | Saluran WhatsApp produksi                                 | Blocked | URL saluran resmi pemilik                             |
 | Setiap layanan menuju admin produksi yang benar           | Blocked | Konfirmasi mapping setelah kontak nyata dimasukkan    |
 | Environment Vercel dan webhook revalidation terverifikasi | Blocked | Akses project Vercel `dlmurahweb`                     |
-| Web Analytics menerima event produksi                     | Blocked | Aktifkan Web Analytics dan uji setelah deployment     |
+| Web Analytics menerima event produksi                     | Blocked | Aktifkan Web Analytics pada project Vercel            |
 
 Catatan keamanan: Management token pada sesi Contentful CLI harus dirotasi
 sebelum digunakan kembali karena sempat tampil pada task execution log. Token
@@ -40,14 +42,14 @@ tersebut tidak memiliki akses ke space DLMURAH, tetapi tetap harus dianggap
 terekspos.
 
 Fallback sengaja tidak mengaktifkan nomor atau saluran placeholder. Karena itu,
-release kode aman untuk dipublikasikan, tetapi belum dapat menerima transaksi
+release produksi aman untuk ditampilkan, tetapi belum dapat menerima transaksi
 sampai data bisnis yang disetujui pemilik tersedia.
 
 ## Bukti verifikasi
 
-- Commit release lokal: `c8ba7e8`.
+- Commit runtime produksi: `e44b4e7`.
 - `pnpm install --frozen-lockfile` — lulus.
 - `pnpm format:check`, lint, type-check, unit, build — lulus.
-- Playwright — 19/19 lulus.
+- Playwright lokal dan produksi — 19/19 lulus.
 - Unit WhatsApp — 4/4 lulus.
-- Lighthouse mobile 90/100/100/100; desktop 100/100/100/100.
+- Lighthouse produksi mobile 97/100/100/100; desktop 100/100/100/100.

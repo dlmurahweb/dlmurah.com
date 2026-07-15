@@ -6,10 +6,10 @@ shadcn/ui.
 
 ## Status implementasi
 
-Phase 1–7 telah selesai pada sisi kode. Integrasi Contentful tetap menggunakan
-fallback aman sampai content model diprovisikan, dan aktivasi layanan eksternal
-masih membutuhkan akses pemilik pada Phase 8. Lihat status serta bukti setiap iterasi pada
-[`docs/`](./docs/README.md).
+Phase 1–7 dan deployment produksi telah selesai. Integrasi Contentful tetap
+menggunakan fallback aman sampai content model diprovisikan; kontak bisnis dan
+aktivasi Web Analytics masih membutuhkan akses/data pemilik. Lihat status serta
+bukti setiap iterasi pada [`docs/`](./docs/README.md).
 
 ## Persyaratan lokal
 

@@ -58,3 +58,10 @@ akses tersebut.
 Setelah blocker pertama selesai, push dua commit lokal dan deployment Vercel
 akan terpicu. Setelah blocker Contentful/data selesai, jalankan provisioning,
 publish konten, konfigurasi webhook, lalu ulangi production QA.
+
+## Resolution Addendum
+
+GitHub CLI ternyata menyimpan account `dlmurahweb` dalam keadaan inactive.
+Setelah account tersebut diaktifkan, push berhasil dan deployment produksi
+terpicu. Hasil deployment dan production QA dicatat pada iterasi 009. Blocker
+Contentful, data bisnis, Vercel environment secret, dan Web Analytics tetap ada.
