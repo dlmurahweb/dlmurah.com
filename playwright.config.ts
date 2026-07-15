@@ -1,5 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
+const productionBaseUrl = process.env.PLAYWRIGHT_BASE_URL;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
@@ -7,15 +9,17 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   reporter: [["list"]],
   use: {
-    baseURL: "http://127.0.0.1:3100",
+    baseURL: productionBaseUrl ?? "http://127.0.0.1:3100",
     channel: "chrome",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
-  webServer: {
-    command: "pnpm start -p 3100",
-    url: "http://127.0.0.1:3100",
-    reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
-  },
+  webServer: productionBaseUrl
+    ? undefined
+    : {
+        command: "pnpm start -p 3100",
+        url: "http://127.0.0.1:3100",
+        reuseExistingServer: !process.env.CI,
+        timeout: 30_000,
+      },
 });

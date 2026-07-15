@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 
 import { InteractionAnalytics } from "@/components/analytics/interaction-analytics";
+import { SiteAnalytics } from "@/components/analytics/site-analytics";
 import { SITE_DEFAULTS } from "@/lib/constants";
 import { env } from "@/lib/env";
 
@@ -59,8 +59,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isVercelRuntime = process.env.VERCEL === "1";
-
   return (
     <html lang="id" className={`${manrope.variable} ${spaceGrotesk.variable}`}>
       <body>
@@ -68,12 +66,8 @@ export default function RootLayout({
           Lewati ke konten utama
         </a>
         {children}
-        {isVercelRuntime ? (
-          <>
-            <InteractionAnalytics />
-            <Analytics />
-          </>
-        ) : null}
+        <InteractionAnalytics />
+        <SiteAnalytics />
       </body>
     </html>
   );
