@@ -41,6 +41,16 @@
   --radius-xl: calc(var(--radius) * 1.4);
 }
 
+@layer components {
+  .policy-copy h2 {
+    @apply mt-10 font-heading text-2xl font-bold tracking-tight text-foreground first:mt-0;
+  }
+
+  .policy-copy p {
+    @apply mt-4 text-base leading-7 text-foreground-muted;
+  }
+}
+
 :root {
   color-scheme: dark;
   --background: #050b35;
@@ -78,6 +88,10 @@
   --input: var(--border);
   --ring: var(--brand-cyan);
   --radius: 0.75rem;
+  --duration-fast: 140ms;
+  --duration-base: 240ms;
+  --duration-slow: 520ms;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 * {
@@ -102,9 +116,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 3px;
 }
 
 ::selection {
@@ -159,12 +173,89 @@ a {
   box-shadow: inset 0 0 4rem rgb(87 236 245 / 7%);
 }
 
+.angular-button {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 0.7rem) 0,
+    100% 0.7rem,
+    100% 100%,
+    0.7rem 100%,
+    0 calc(100% - 0.7rem)
+  );
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  transform: translateY(-180%);
+  background: var(--brand-cyan);
+  color: var(--background);
+  font-weight: 800;
+  transition: transform var(--duration-fast) var(--ease-out-quart);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+@utility section-shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@utility section-space {
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+@media (min-width: 40rem) {
+  .section-shell {
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .section-shell {
+    padding-inline: 3rem;
+  }
+}
+
 .logo-aura {
   position: absolute;
   inset: 12%;
   border-radius: 50%;
   background: rgb(87 236 245 / 18%);
   filter: blur(4.5rem);
+}
+
+.rich-copy p + p {
+  margin-top: 1rem;
+}
+
+.rich-copy h2,
+.rich-copy h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+}
+
+.rich-copy ul,
+.rich-copy ol {
+  margin-block: 1rem;
+  padding-left: 1.25rem;
+}
+
+.rich-copy a {
+  color: var(--brand-cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

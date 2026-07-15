@@ -17,8 +17,10 @@ const serverEnvSchema = z.object({
   CONTENTFUL_ACCESS_TOKEN: optionalText,
   CONTENTFUL_PREVIEW_ACCESS_TOKEN: optionalText,
   CONTENTFUL_ENVIRONMENT: optionalText.default("master"),
+  CONTENTFUL_LOCALE: optionalText,
   CONTENTFUL_PREVIEW_SECRET: optionalText,
-  NEXT_PUBLIC_SITE_URL: optionalUrl.default("http://localhost:3000"),
+  CONTENTFUL_REVALIDATE_SECRET: optionalText,
+  NEXT_PUBLIC_SITE_URL: optionalUrl.default("https://dlmurah.com"),
   NEXT_PUBLIC_GA_ID: optionalText,
 });
 
@@ -27,7 +29,9 @@ export const env = serverEnvSchema.parse({
   CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
   CONTENTFUL_PREVIEW_ACCESS_TOKEN: process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
   CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT,
+  CONTENTFUL_LOCALE: process.env.CONTENTFUL_LOCALE,
   CONTENTFUL_PREVIEW_SECRET: process.env.CONTENTFUL_PREVIEW_SECRET,
+  CONTENTFUL_REVALIDATE_SECRET: process.env.CONTENTFUL_REVALIDATE_SECRET,
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
 });
