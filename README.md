@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DLMURAH.com
 
-## Getting Started
+Website profil bisnis dan jalur konversi WhatsApp untuk DLMURAH. Proyek ini
+menggunakan Next.js App Router, TypeScript, Tailwind CSS, dan fondasi komponen
+shadcn/ui.
 
-First, run the development server:
+## Status implementasi
+
+Phase 1 selesai mencakup fondasi aplikasi, tema merek, tipografi, metadata
+dasar, validasi environment, konfigurasi shadcn/ui, dan aset logo teroptimasi.
+Integrasi Contentful termasuk dalam Phase 2 dan belum diimplementasikan.
+
+## Persyaratan lokal
+
+- Node.js 20.9 atau lebih baru
+- pnpm 11.5.3 (versi dikunci melalui `packageManager`)
+
+Aktifkan Corepack bila pnpm belum tersedia:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+corepack enable
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Menjalankan proyek
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+cp .env.example .env.local
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Buka [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Pemeriksaan kualitas
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm lint
+pnpm type-check
+pnpm format:check
+pnpm build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Gunakan `pnpm format` untuk menerapkan format kode dan `pnpm lint:fix` untuk
+perbaikan lint yang aman.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment variables
 
-## Deploy on Vercel
+Salin `.env.example` menjadi `.env.local`. Jangan commit token atau secret.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable                          | Visibilitas | Keterangan                                     |
+| --------------------------------- | ----------- | ---------------------------------------------- |
+| `CONTENTFUL_SPACE_ID`             | Server      | Space ID Contentful, digunakan mulai Phase 2   |
+| `CONTENTFUL_ACCESS_TOKEN`         | Server      | Delivery API token                             |
+| `CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Server      | Preview API token opsional                     |
+| `CONTENTFUL_ENVIRONMENT`          | Server      | Environment Contentful, default `master`       |
+| `CONTENTFUL_PREVIEW_SECRET`       | Server      | Secret untuk preview mode                      |
+| `NEXT_PUBLIC_SITE_URL`            | Publik      | Origin kanonis, misalnya `https://dlmurah.com` |
+| `NEXT_PUBLIC_GA_ID`               | Publik      | ID Google Analytics opsional                   |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Semua variable divalidasi dengan Zod. Kredensial Contentful tidak menggunakan
+prefix `NEXT_PUBLIC_`, sehingga tetap berada di server.
+
+## Struktur Phase 1
+
+```text
+src/
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── assets/
+├── components/
+├── contentful/
+├── lib/
+    ├── constants.ts
+    ├── env.ts
+    └── utils.ts
+└── types/
+```
+
+Folder kosong telah disiapkan untuk fase berikutnya agar struktur dapat tumbuh
+tanpa mencampur tanggung jawab. Aset publik berada di `public/brand`, sedangkan
+materi sumber pemilik tetap berada di `assets`.
+
+## Aset merek
+
+- `assets/logo.JPG` adalah materi sumber milik pemilik proyek.
+- `public/brand/logo.webp` adalah turunan web teroptimasi.
+- `src/app/icon.png`, `apple-icon.png`, dan `favicon.ico` menggunakan file
+  convention Metadata Next.js.
+
+Jangan menambahkan screenshot, karakter, UI, atau aset hasil ekstraksi dari
+Growtopia.
+
+## Deployment ke Vercel
+
+1. Import repository ke Vercel dan pilih pnpm sebagai package manager.
+2. Tambahkan environment variables dari `.env.example` dengan nilai produksi.
+3. Atur `NEXT_PUBLIC_SITE_URL` ke domain HTTPS yang disetujui.
+4. Jalankan build command `pnpm build` dan gunakan output Next.js default.
+5. Hubungkan domain, verifikasi DNS/SSL, lalu uji metadata dan security headers.
+
+Konfigurasi Contentful, webhook revalidation, analytics, dan panduan CMS akan
+ditambahkan pada fase yang sesuai dalam spesifikasi proyek.
