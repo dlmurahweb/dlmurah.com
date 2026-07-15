@@ -9,6 +9,7 @@
 | [005](./005-phase-5-assets-motion.md)          | 15 Juli 2026 | Aset transparan, social image, dan motion ambient terkontrol  | Selesai                             |
 | [006](./006-phase-6-seo-analytics-policies.md) | 15 Juli 2026 | Metadata, structured data, analytics, policy, dan route SEO   | Selesai                             |
 | [007](./007-phase-7-quality-assurance.md)      | 15 Juli 2026 | Audit, regression test, security headers, dan Lighthouse      | Selesai                             |
+| [008](./008-phase-8-deployment-handoff.md)     | 15 Juli 2026 | Runbook, production audit, dan handoff blocker akses          | Lokal selesai; eksternal blocked    |
 
 Tambahkan satu baris saat iterasi baru ditutup. Bila satu fase membutuhkan
 beberapa iterasi, gunakan nomor terpisah agar keputusan dan verifikasi tidak

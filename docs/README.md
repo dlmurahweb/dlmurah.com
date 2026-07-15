@@ -13,6 +13,8 @@ produk utama tetap berada di [`fromchatgpt.md`](../fromchatgpt.md).
   rollback.
 - [`release-checklist.md`](./release-checklist.md) — checklist sebelum dan
   sesudah release.
+- [`acceptance-audit.md`](./acceptance-audit.md) — status setiap acceptance
+  criteria dan kebutuhan eksternal yang tersisa.
 - [`iterations/`](./iterations/) — catatan berurutan untuk setiap iterasi yang
   selesai atau menghasilkan keputusan penting.
 
