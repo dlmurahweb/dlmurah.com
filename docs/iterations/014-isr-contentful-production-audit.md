@@ -24,6 +24,19 @@ Observasi dua siklus production:
 Ini membuktikan time-based ISR berjalan pada Vercel, tetapi runtime production
 tidak membaca data Contentful yang sama dengan environment lokal.
 
+## Controlled rebuild
+
+- Audit dokumentasi dipush pada commit `6d0ea52` untuk memicu build baru tanpa
+  mengubah application logic.
+- Vercel menyelesaikan deployment dengan status `success`.
+- Request pertama pada deployment baru merespons `x-vercel-cache: PRERENDER`
+  dan `age: 0`.
+- HTML prerender baru masih mempunyai nol link `wa.me`.
+
+Karena build baru juga menghasilkan state fallback, penyebabnya dipastikan
+berada pada environment variable Contentful Vercel yang hilang, salah, atau
+tidak diterapkan ke scope Production—bukan pada cache lama.
+
 ## On-demand revalidation
 
 Route `POST /api/revalidate` tersedia dan menginvalidasi tag serta homepage.
