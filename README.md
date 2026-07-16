@@ -6,10 +6,10 @@ shadcn/ui.
 
 ## Status implementasi
 
-Phase 1–7 dan deployment produksi telah selesai. Integrasi Contentful tetap
-menggunakan fallback aman sampai content model diprovisikan; kontak bisnis dan
-aktivasi Web Analytics masih membutuhkan akses/data pemilik. Lihat status serta
-bukti setiap iterasi pada [`docs/`](./docs/README.md).
+Phase 1–7, deployment produksi, dan provisioning Contentful telah selesai.
+Kontak bisnis, konfigurasi preview/revalidation Vercel, dan aktivasi Web
+Analytics masih membutuhkan akses/data pemilik. Lihat status serta bukti setiap
+iterasi pada [`docs/`](./docs/README.md).
 
 ## Persyaratan lokal
 

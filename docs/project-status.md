@@ -1,13 +1,13 @@
 # Status Proyek DLMURAH
 
-Terakhir diperbarui: 15 Juli 2026
+Terakhir diperbarui: 16 Juli 2026
 
 ## Ringkasan fase
 
 | Fase                         | Status                              | Bukti utama                                                                                   |
 | ---------------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------- |
 | 1 — Project Setup            | Selesai                             | [`001-phase-1-foundation.md`](./iterations/001-phase-1-foundation.md)                         |
-| 2 — Contentful Setup         | Kode selesai; provisioning tertunda | [`002-phase-2-contentful.md`](./iterations/002-phase-2-contentful.md)                         |
+| 2 — Contentful Setup         | Provisioning selesai; data tertunda | [`012-contentful-provisioned.md`](./iterations/012-contentful-provisioned.md)                 |
 | 3 — Design System            | Selesai                             | [`003-phase-3-design-system.md`](./iterations/003-phase-3-design-system.md)                   |
 | 4 — Homepage Sections        | Selesai                             | [`004-phase-4-homepage.md`](./iterations/004-phase-4-homepage.md)                             |
 | 5 — Assets and Animation     | Selesai                             | [`005-phase-5-assets-motion.md`](./iterations/005-phase-5-assets-motion.md)                   |
@@ -23,19 +23,20 @@ Terakhir diperbarui: 15 Juli 2026
 - Build produksi Next.js 16.2.10 berhasil.
 - Metadata dinamis, JSON-LD, social cards, robots, sitemap, manifest, policy
   pages, 404, dan event analytics telah tersedia.
-- Empat unit test dan 19 E2E/accessibility/responsive test tersedia.
+- Tujuh unit test dan 19 E2E/accessibility/responsive test tersedia.
 - Lighthouse produksi: mobile 97/100/100/100 dan desktop 100/100/100/100.
 - Production release tersedia di `https://www.dlmurah.com`; Playwright produksi
   19/19 lulus.
 - Konfigurasi `allowBuilds` untuk `sharp` dan `unrs-resolver` telah diperbaiki.
-- Delivery dan Preview token tersedia pada environment lokal, tetapi content
-  model belum ada pada space (`unknownContentType`).
-- Management token, preview secret, dan revalidation secret belum tersedia;
-  secret tidak boleh disimpan di Git.
+- Sebelas content model dan seluruh sample entry telah dibuat dan dipublikasikan
+  pada environment Contentful `master`.
+- Delivery API memverifikasi jumlah entry terbit untuk seluruh content type.
+- Admin dan saluran sample tetap nonaktif sampai data bisnis nyata diverifikasi.
+- Preview/revalidation secret belum tersedia pada project Vercel; secret tidak
+  boleh disimpan di Git.
 
 ## Hambatan eksternal yang mungkin memerlukan pemilik
 
-- Kredensial Contentful untuk membuat model/entry pada space produksi.
 - Nomor WhatsApp, tautan saluran, statistik, dan klaim bisnis yang disetujui.
 - Akses project Vercel untuk preview/revalidation secret dan webhook.
 - Aktivasi Web Analytics pada project Vercel.

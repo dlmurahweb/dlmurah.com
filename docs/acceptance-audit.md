@@ -1,6 +1,6 @@
 # Acceptance Criteria Audit
 
-Tanggal audit: 15 Juli 2026
+Tanggal audit: 16 Juli 2026
 
 ## Lulus pada kode dan produksi
 
@@ -23,23 +23,25 @@ Tanggal audit: 15 Juli 2026
 - Release baru tersedia di `https://www.dlmurah.com` dengan SSL dan redirect
   apex yang benar.
 - Production Playwright 19/19 lulus.
+- Sebelas content model dan sample entry tersedia serta Published pada space
+  Contentful DLMURAH.
+- Owner dapat mengubah nomor, link, layanan, statistik, dan konten melalui model
+  Contentful yang telah diprovisikan.
 
 ## Menunggu akses/data eksternal
 
-| Kriteria                                                  | Status  | Kebutuhan untuk selesai                               |
-| --------------------------------------------------------- | ------- | ----------------------------------------------------- |
-| Content model tersedia pada space produksi                | Blocked | Management token yang memiliki akses ke space DLMURAH |
-| Pemilik dapat mengubah nomor/link melalui Contentful      | Blocked | Provisioning model lalu uji publish                   |
-| Nomor admin nyata dan prefilled message produksi          | Blocked | Data bisnis terverifikasi pemilik                     |
-| Saluran WhatsApp produksi                                 | Blocked | URL saluran resmi pemilik                             |
-| Setiap layanan menuju admin produksi yang benar           | Blocked | Konfirmasi mapping setelah kontak nyata dimasukkan    |
-| Environment Vercel dan webhook revalidation terverifikasi | Blocked | Akses project Vercel `dlmurahweb`                     |
-| Web Analytics menerima event produksi                     | Blocked | Aktifkan Web Analytics pada project Vercel            |
+| Kriteria                                                  | Status  | Kebutuhan untuk selesai                            |
+| --------------------------------------------------------- | ------- | -------------------------------------------------- |
+| Nomor admin nyata dan prefilled message produksi          | Blocked | Data bisnis terverifikasi pemilik                  |
+| Saluran WhatsApp produksi                                 | Blocked | URL saluran resmi pemilik                          |
+| Setiap layanan menuju admin produksi yang benar           | Blocked | Konfirmasi mapping setelah kontak nyata dimasukkan |
+| Environment Vercel dan webhook revalidation terverifikasi | Blocked | Akses project Vercel `dlmurahweb`                  |
+| Web Analytics menerima event produksi                     | Blocked | Aktifkan Web Analytics pada project Vercel         |
 
-Catatan keamanan: Management token pada sesi Contentful CLI harus dirotasi
-sebelum digunakan kembali karena sempat tampil pada task execution log. Token
-tersebut tidak memiliki akses ke space DLMURAH, tetapi tetap harus dianggap
-terekspos.
+Catatan keamanan: bila Management token yang baru diberi akses adalah token yang
+pernah tampil pada task execution log, token tersebut harus segera dirotasi.
+Provisioning sudah selesai sehingga Management token tidak diperlukan oleh
+runtime website.
 
 Fallback sengaja tidak mengaktifkan nomor atau saluran placeholder. Karena itu,
 release produksi aman untuk ditampilkan, tetapi belum dapat menerima transaksi
@@ -51,5 +53,7 @@ sampai data bisnis yang disetujui pemilik tersedia.
 - `pnpm install --frozen-lockfile` — lulus.
 - `pnpm format:check`, lint, type-check, unit, build — lulus.
 - Playwright lokal dan produksi — 19/19 lulus.
-- Unit WhatsApp — 4/4 lulus.
+- Unit test — 7/7 lulus, termasuk regresi error Contentful SDK.
+- Delivery API — seluruh 11 content type mengembalikan entry Published sesuai
+  sample dataset.
 - Lighthouse produksi mobile 97/100/100/100; desktop 100/100/100/100.

@@ -8,6 +8,7 @@ import {
 } from "contentful-management";
 import { z } from "zod";
 
+import { isContentfulNotFound } from "./errors";
 import { CONTENT_MODEL_DEFINITIONS } from "./model-definitions";
 import { SAMPLE_ENTRIES } from "./sample-entries";
 
@@ -24,20 +25,6 @@ const setupEnvSchema = z.object({
     .optional()
     .transform((value) => value === "true"),
 });
-
-function isNotFound(error: unknown): boolean {
-  const candidate = error as {
-    status?: number;
-    statusCode?: number;
-    sys?: { id?: string };
-  };
-
-  return (
-    candidate?.status === 404 ||
-    candidate?.statusCode === 404 ||
-    candidate?.sys?.id === "NotFound"
-  );
-}
 
 async function ensureLocale(
   client: PlainClientAPI,
@@ -112,7 +99,7 @@ async function upsertContentType(
     );
     console.log(`Model ${model.id} diperbarui.`);
   } catch (error) {
-    if (!isNotFound(error)) throw error;
+    if (!isContentfulNotFound(error)) throw error;
     contentType = await client.contentType.createWithId(
       { contentTypeId: model.id },
       model.definition,
@@ -162,7 +149,7 @@ async function seedEntry(
     }
     console.log(`Entry ${sample.id} diperbarui karena force seed aktif.`);
   } catch (error) {
-    if (!isNotFound(error)) throw error;
+    if (!isContentfulNotFound(error)) throw error;
     const entry = await client.entry.createWithId(
       { entryId: sample.id, contentTypeId: sample.contentType },
       { fields: localizedFields },
