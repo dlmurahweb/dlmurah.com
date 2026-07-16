@@ -15,6 +15,7 @@
 | [011](./011-contentful-provisioning-attempt.md)    | 16 Juli 2026 | Provisioning ditolak oleh Contentful dengan token invalid     | Menunggu Management token baru      |
 | [012](./012-contentful-provisioned.md)             | 16 Juli 2026 | Perbaikan SDK error dan provisioning seluruh model/entry      | Selesai; data bisnis tertunda       |
 | [013](./013-contentful-production-verification.md) | 16 Juli 2026 | Deployment dan QA production setelah aktivasi Contentful      | Lulus; integrasi eksternal tertunda |
+| [014](./014-isr-contentful-production-audit.md)    | 16 Juli 2026 | Audit dua siklus ISR dan perbedaan data Contentful production | ISR lulus; env Vercel perlu koreksi |
 
 Tambahkan satu baris saat iterasi baru ditutup. Bila satu fase membutuhkan
 beberapa iterasi, gunakan nomor terpisah agar keputusan dan verifikasi tidak
