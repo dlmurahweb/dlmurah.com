@@ -15,6 +15,8 @@ produk utama tetap berada di [`fromchatgpt.md`](../fromchatgpt.md).
   sesudah release.
 - [`acceptance-audit.md`](./acceptance-audit.md) — status setiap acceptance
   criteria dan kebutuhan eksternal yang tersisa.
+- [`audits/`](./audits/) — audit berbasis snapshot, bukti, severity, dan
+  roadmap perbaikan.
 - [`iterations/`](./iterations/) — catatan berurutan untuk setiap iterasi yang
   selesai atau menghasilkan keputusan penting.
 

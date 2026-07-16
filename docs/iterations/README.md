@@ -16,6 +16,8 @@
 | [012](./012-contentful-provisioned.md)             | 16 Juli 2026 | Perbaikan SDK error dan provisioning seluruh model/entry      | Selesai; data bisnis tertunda       |
 | [013](./013-contentful-production-verification.md) | 16 Juli 2026 | Deployment dan QA production setelah aktivasi Contentful      | Lulus; integrasi eksternal tertunda |
 | [014](./014-isr-contentful-production-audit.md)    | 16 Juli 2026 | Audit dua siklus ISR dan perbedaan data Contentful production | ISR lulus; env Vercel perlu koreksi |
+| [015](./015-frontend-design-audit.md)              | 16 Juli 2026 | Audit frontend production dan roadmap perbaikan P0–P3         | Selesai; remediation belum dimulai  |
+| [016](./016-mwtstore-positive-pattern-audit.md)    | 16 Juli 2026 | Audit Playwright pola positif MWTSTORE “How It Works”         | Selesai; referensi prinsip saja     |
 
 Tambahkan satu baris saat iterasi baru ditutup. Bila satu fase membutuhkan
 beberapa iterasi, gunakan nomor terpisah agar keputusan dan verifikasi tidak
