@@ -49,7 +49,7 @@ sampai data bisnis yang disetujui pemilik tersedia.
 
 ## Bukti verifikasi
 
-- Commit runtime produksi: `e44b4e7`.
+- Commit runtime produksi: `01fcfba`.
 - `pnpm install --frozen-lockfile` — lulus.
 - `pnpm format:check`, lint, type-check, unit, build — lulus.
 - Playwright lokal dan produksi — 19/19 lulus.
