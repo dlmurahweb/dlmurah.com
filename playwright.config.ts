@@ -1,6 +1,7 @@
 import { defineConfig } from "@playwright/test";
 
 const productionBaseUrl = process.env.PLAYWRIGHT_BASE_URL;
+const e2eRevalidateSecret = "e2e-revalidate-secret";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -18,6 +19,10 @@ export default defineConfig({
     ? undefined
     : {
         command: "pnpm start -p 3100",
+        env: {
+          ...process.env,
+          CONTENTFUL_REVALIDATE_SECRET: e2eRevalidateSecret,
+        },
         url: "http://127.0.0.1:3100",
         reuseExistingServer: !process.env.CI,
         timeout: 30_000,

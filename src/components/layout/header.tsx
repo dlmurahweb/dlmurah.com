@@ -10,16 +10,17 @@ import { cn } from "@/lib/utils";
 import type { NavigationItem } from "@/types/site";
 
 export function Header({
+  ctaCompactLabel,
+  ctaLabel,
   navigation,
-  whatsappHref,
 }: {
+  ctaCompactLabel: string;
+  ctaLabel: string;
   navigation: NavigationItem[];
-  whatsappHref?: string | null;
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState<string>();
-  const ctaHref = whatsappHref ?? "#pilih-admin";
-  const whatsappExternal = ctaHref.startsWith("https://");
+  const ctaHref = "#pilih-admin";
 
   useEffect(() => {
     const updateScrolled = () => setScrolled(window.scrollY > 12);
@@ -67,7 +68,7 @@ export function Header({
           data-source="header_logo"
           data-label="Beranda"
         >
-          <BrandLogo priority />
+          <BrandLogo priority size={58} />
         </a>
 
         <nav
@@ -95,23 +96,21 @@ export function Header({
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button variant="whatsapp" className="hidden xl:inline-flex" asChild>
+          <Button variant="whatsapp" className="hidden lg:inline-flex" asChild>
             <a
               href={ctaHref}
-              target={whatsappExternal ? "_blank" : undefined}
-              rel={whatsappExternal ? "noopener noreferrer" : undefined}
-              data-analytics-event={
-                whatsappExternal ? "whatsapp_click" : "navigation_click"
-              }
+              data-analytics-event="navigation_click"
               data-source="header_cta"
-              data-label="Chat di WhatsApp"
+              data-label={ctaLabel}
             >
               <MessageCircle aria-hidden="true" />
-              Chat di WhatsApp
+              <span className="hidden xl:inline">{ctaLabel}</span>
+              <span className="xl:hidden">{ctaCompactLabel}</span>
             </a>
           </Button>
           <MobileNavigation
             activeHref={activeHref}
+            ctaLabel={ctaLabel}
             navigation={navigation}
             whatsappHref={ctaHref}
           />

@@ -18,9 +18,7 @@ import { StatisticsSection } from "@/components/sections/statistics-section";
 import { getHomePageData } from "@/contentful/queries";
 import { env } from "@/lib/env";
 import { richTextToPlainText } from "@/lib/rich-text";
-import { createAdminWhatsAppLink, normalizePhoneNumber } from "@/lib/whatsapp";
-
-export const revalidate = 300;
+import { isContactPublishable, normalizePhoneNumber } from "@/lib/whatsapp";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { isEnabled: preview } = await draftMode();
@@ -52,8 +50,6 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const { isEnabled: preview } = await draftMode();
   const data = await getHomePageData({ preview });
-  const primaryAdmin = data.admins.find((admin) => admin.isActive);
-  const primaryWhatsAppHref = createAdminWhatsAppLink(primaryAdmin);
   const primaryChannel = data.channels.find((channel) => channel.isActive);
   const siteUrl = (
     data.siteSettings.siteUrl.startsWith("https://")
@@ -62,7 +58,7 @@ export default async function Home() {
   ).replace(/\/$/, "");
   const activeContacts = data.admins.flatMap((admin) => {
     const phoneNumber = normalizePhoneNumber(admin.phoneNumber);
-    if (!admin.isActive || !/^\d{8,15}$/.test(phoneNumber)) return [];
+    if (!isContactPublishable(admin)) return [];
 
     return [
       {
@@ -81,7 +77,7 @@ export default async function Home() {
         "@id": `${siteUrl}/#organization`,
         name: data.siteSettings.siteName,
         url: siteUrl,
-        logo: `${siteUrl}/brand/lock-mark.png`,
+        logo: `${siteUrl}/brand/logo.webp`,
         description: data.siteSettings.siteDescription,
         ...(activeContacts.length ? { contactPoint: activeContacts } : {}),
       },
@@ -125,33 +121,26 @@ export default async function Home() {
         </div>
       ) : null}
       <AnnouncementBar announcement={data.announcement} />
-      <Header navigation={data.navigation} whatsappHref={primaryWhatsAppHref} />
+      <Header
+        ctaCompactLabel={data.homepage.navigationCtaCompactLabel}
+        ctaLabel={data.homepage.navigationCtaLabel}
+        navigation={data.navigation}
+      />
       <main id="main-content" className="site-shell">
-        <HeroSection
-          homepage={data.homepage}
-          features={data.features}
-          primaryAdmin={primaryAdmin}
-        />
+        <HeroSection homepage={data.homepage} features={data.features} />
         <StatisticsSection statistics={data.statistics} />
         <ServicesSection
           homepage={data.homepage}
           services={data.services}
           admins={data.admins}
         />
-        <AdminsSection admins={data.admins} />
-        <ProcessSection
-          heading={data.homepage.howItWorksHeading}
-          steps={data.processSteps}
-        />
-        <FeaturesSection features={data.features} />
-        <ChannelsSection channels={data.channels} />
+        <AdminsSection homepage={data.homepage} admins={data.admins} />
+        <ProcessSection homepage={data.homepage} steps={data.processSteps} />
+        <FeaturesSection homepage={data.homepage} features={data.features} />
+        <ChannelsSection homepage={data.homepage} channels={data.channels} />
         <AboutSection homepage={data.homepage} />
-        <FaqSection faqs={data.faqs} />
-        <FinalCtaSection
-          homepage={data.homepage}
-          primaryAdmin={primaryAdmin}
-          channel={primaryChannel}
-        />
+        <FaqSection faqs={data.faqs} homepage={data.homepage} />
+        <FinalCtaSection homepage={data.homepage} channel={primaryChannel} />
       </main>
       <Footer
         settings={data.siteSettings}

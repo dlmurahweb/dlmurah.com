@@ -15,8 +15,7 @@ export function SurfaceCard({
     <article
       className={cn(
         "border border-border bg-surface text-card-foreground",
-        interactive &&
-          "transition-[transform,border-color,background-color] duration-200 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-1 hover:border-brand-blue hover:bg-surface-elevated motion-reduce:transform-none",
+        interactive && "surface-card-interactive",
         className,
       )}
       {...props}

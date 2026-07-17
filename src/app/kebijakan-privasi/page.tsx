@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 
 import { PolicyPage } from "@/components/layout/policy-page";
+import { PRIVACY_POLICY_METADATA } from "@/lib/policies";
 
 export const metadata: Metadata = {
-  title: "Kebijakan Privasi",
-  description:
-    "Kebijakan privasi website DLMURAH mengenai analytics, layanan pihak ketiga, dan komunikasi WhatsApp.",
-  alternates: { canonical: "/kebijakan-privasi" },
+  title: PRIVACY_POLICY_METADATA.title,
+  description: PRIVACY_POLICY_METADATA.seoDescription,
+  alternates: { canonical: PRIVACY_POLICY_METADATA.canonicalPath },
 };
 
 export default function PrivacyPolicyPage() {
   return (
     <PolicyPage
-      title="Kebijakan Privasi"
-      description="Penjelasan tentang data teknis yang dapat diproses saat kamu mengakses website dan berpindah ke layanan pihak ketiga."
+      title={PRIVACY_POLICY_METADATA.title}
+      description={PRIVACY_POLICY_METADATA.description}
+      lastUpdated={PRIVACY_POLICY_METADATA.lastUpdated}
     >
       <h2>1. Ruang lingkup</h2>
       <p>

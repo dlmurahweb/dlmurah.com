@@ -5,9 +5,15 @@ import { BrandIcon } from "@/components/brand/brand-icon";
 import { SurfaceCard } from "@/components/cards/surface-card";
 import { Button } from "@/components/ui/button";
 import { createAdminWhatsAppLink } from "@/lib/whatsapp";
-import type { WhatsAppAdmin } from "@/types/site";
+import type { HomePageContent, WhatsAppAdmin } from "@/types/site";
 
-export function AdminCard({ admin }: { admin: WhatsAppAdmin }) {
+export function AdminCard({
+  admin,
+  homepage,
+}: {
+  admin: WhatsAppAdmin;
+  homepage: HomePageContent;
+}) {
   const href = createAdminWhatsAppLink(admin);
 
   return (
@@ -41,7 +47,10 @@ export function AdminCard({ admin }: { admin: WhatsAppAdmin }) {
         <span
           className={`border px-3 py-1.5 ${href ? "border-success/35 bg-success/10 text-success" : "border-warning/35 bg-warning/10 text-warning"}`}
         >
-          {admin.availabilityLabel ?? (href ? "Tersedia" : "Belum aktif")}
+          {admin.availabilityLabel ??
+            (href
+              ? homepage.activeContactFallbackLabel
+              : homepage.inactiveContactFallbackLabel)}
         </span>
       </div>
 
@@ -63,16 +72,16 @@ export function AdminCard({ admin }: { admin: WhatsAppAdmin }) {
               data-source="admin_card"
               data-admin={admin.name}
               data-service={admin.serviceCategory}
-              data-label="Chat Admin"
+              data-label={homepage.adminCtaLabel}
             >
               <MessageCircle aria-hidden="true" />
-              Chat Admin
+              {homepage.adminCtaLabel}
               <ArrowUpRight aria-hidden="true" />
             </a>
           </Button>
         ) : (
           <Button variant="secondary" className="w-full" disabled>
-            Kontak belum aktif
+            {homepage.inactiveContactLabel}
           </Button>
         )}
       </div>

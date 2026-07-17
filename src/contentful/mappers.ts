@@ -122,6 +122,27 @@ export function mapSiteSettings(
     ),
     siteUrl: safeLink(fields.siteUrl) ?? fallback.siteUrl,
     contactEmail: optionalText(fields.contactEmail),
+    footerNavigationHeading: text(
+      fields.footerNavigationHeading,
+      fallback.footerNavigationHeading,
+    ),
+    footerAdminsHeading: text(
+      fields.footerAdminsHeading,
+      fallback.footerAdminsHeading,
+    ),
+    footerChannelsHeading: text(
+      fields.footerChannelsHeading,
+      fallback.footerChannelsHeading,
+    ),
+    footerPrivacyLabel: text(
+      fields.footerPrivacyLabel,
+      fallback.footerPrivacyLabel,
+    ),
+    footerTermsLabel: text(fields.footerTermsLabel, fallback.footerTermsLabel),
+    footerInactiveSuffix: text(
+      fields.footerInactiveSuffix,
+      fallback.footerInactiveSuffix,
+    ),
     footerDisclaimer: text(fields.footerDisclaimer, fallback.footerDisclaimer),
     copyrightText: text(fields.copyrightText, fallback.copyrightText),
   };
@@ -150,25 +171,118 @@ export function mapHomepage(
     ),
     secondaryCtaTarget:
       safeLink(fields.secondaryCtaTarget) ?? fallback.secondaryCtaTarget,
+    navigationCtaLabel: text(
+      fields.navigationCtaLabel,
+      fallback.navigationCtaLabel,
+    ),
+    navigationCtaCompactLabel: text(
+      fields.navigationCtaCompactLabel,
+      fallback.navigationCtaCompactLabel,
+    ),
     heroImageUrl: resolveAssetUrl(fields.heroImage, assets),
+    servicesEyebrow: text(fields.servicesEyebrow, fallback.servicesEyebrow),
     servicesHeading: text(fields.servicesHeading, fallback.servicesHeading),
     servicesDescription: text(
       fields.servicesDescription,
       fallback.servicesDescription,
     ),
+    serviceCtaLabel: text(fields.serviceCtaLabel, fallback.serviceCtaLabel),
+    adminsEyebrow: text(fields.adminsEyebrow, fallback.adminsEyebrow),
+    adminsHeading: text(fields.adminsHeading, fallback.adminsHeading),
+    adminsDescription: text(
+      fields.adminsDescription,
+      fallback.adminsDescription,
+    ),
+    adminsWarning: text(fields.adminsWarning, fallback.adminsWarning),
+    adminCtaLabel: text(fields.adminCtaLabel, fallback.adminCtaLabel),
+    inactiveContactLabel: text(
+      fields.inactiveContactLabel,
+      fallback.inactiveContactLabel,
+    ),
+    activeContactFallbackLabel: text(
+      fields.activeContactFallbackLabel,
+      fallback.activeContactFallbackLabel,
+    ),
+    inactiveContactFallbackLabel: text(
+      fields.inactiveContactFallbackLabel,
+      fallback.inactiveContactFallbackLabel,
+    ),
+    processEyebrow: text(fields.processEyebrow, fallback.processEyebrow),
+    processDescription: text(
+      fields.processDescription,
+      fallback.processDescription,
+    ),
     howItWorksHeading: text(
       fields.howItWorksHeading,
       fallback.howItWorksHeading,
     ),
+    featuresEyebrow: text(fields.featuresEyebrow, fallback.featuresEyebrow),
+    featuresHeading: text(fields.featuresHeading, fallback.featuresHeading),
+    featuresDescription: text(
+      fields.featuresDescription,
+      fallback.featuresDescription,
+    ),
+    featuresVisualCaption: text(
+      fields.featuresVisualCaption,
+      fallback.featuresVisualCaption,
+    ),
+    channelsEyebrow: text(fields.channelsEyebrow, fallback.channelsEyebrow),
+    channelsHeading: text(fields.channelsHeading, fallback.channelsHeading),
+    channelsDescription: text(
+      fields.channelsDescription,
+      fallback.channelsDescription,
+    ),
+    channelCtaLabel: text(fields.channelCtaLabel, fallback.channelCtaLabel),
+    inactiveChannelMessage: text(
+      fields.inactiveChannelMessage,
+      fallback.inactiveChannelMessage,
+    ),
+    inactiveChannelCtaLabel: text(
+      fields.inactiveChannelCtaLabel,
+      fallback.inactiveChannelCtaLabel,
+    ),
+    aboutEyebrow: text(fields.aboutEyebrow, fallback.aboutEyebrow),
     aboutHeading: text(fields.aboutHeading, fallback.aboutHeading),
     aboutContent: isDocument(fields.aboutContent)
       ? fields.aboutContent
       : fallback.aboutContent,
+    aboutValuesHeading: text(
+      fields.aboutValuesHeading,
+      fallback.aboutValuesHeading,
+    ),
+    aboutValueOneLabel: text(
+      fields.aboutValueOneLabel,
+      fallback.aboutValueOneLabel,
+    ),
+    aboutValueTwoLabel: text(
+      fields.aboutValueTwoLabel,
+      fallback.aboutValueTwoLabel,
+    ),
+    aboutValueThreeLabel: text(
+      fields.aboutValueThreeLabel,
+      fallback.aboutValueThreeLabel,
+    ),
+    finalCtaEyebrow: text(fields.finalCtaEyebrow, fallback.finalCtaEyebrow),
     finalCtaTitle: text(fields.finalCtaTitle, fallback.finalCtaTitle),
     finalCtaDescription: text(
       fields.finalCtaDescription,
       fallback.finalCtaDescription,
     ),
+    finalCtaPrimaryLabel: text(
+      fields.finalCtaPrimaryLabel,
+      fallback.finalCtaPrimaryLabel,
+    ),
+    finalCtaChannelLabel: text(
+      fields.finalCtaChannelLabel,
+      fallback.finalCtaChannelLabel,
+    ),
+    finalCtaFallbackChannelLabel: text(
+      fields.finalCtaFallbackChannelLabel,
+      fallback.finalCtaFallbackChannelLabel,
+    ),
+    faqEyebrow: text(fields.faqEyebrow, fallback.faqEyebrow),
+    faqHeading: text(fields.faqHeading, fallback.faqHeading),
+    faqDescription: text(fields.faqDescription, fallback.faqDescription),
     seoTitle: text(fields.seoTitle, fallback.seoTitle),
     seoDescription: text(fields.seoDescription, fallback.seoDescription),
   };

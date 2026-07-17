@@ -42,12 +42,28 @@
 }
 
 @layer components {
+  .surface-card-interactive {
+    @apply transition-[transform,border-color,background-color] duration-200 ease-[var(--ease-out-quart)] motion-reduce:transform-none;
+  }
+
   .policy-copy h2 {
     @apply mt-10 font-heading text-2xl font-bold tracking-tight text-foreground first:mt-0;
   }
 
   .policy-copy p {
     @apply mt-4 text-base leading-7 text-foreground-muted;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .surface-card-interactive:hover {
+    transform: translateY(-0.25rem);
+    border-color: var(--brand-blue);
+    background-color: var(--surface-elevated);
+  }
+
+  .button-lift:hover {
+    transform: translateY(-0.125rem);
   }
 }
 
@@ -92,6 +108,7 @@
   --duration-base: 240ms;
   --duration-slow: 520ms;
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --anchor-scroll-margin: 6rem;
 }
 
 * {
@@ -104,6 +121,12 @@ html {
   scroll-behavior: smooth;
   background: var(--background);
   font-family: var(--font-body), sans-serif;
+}
+
+main[id],
+main > section[id],
+footer[id] {
+  scroll-margin-top: var(--anchor-scroll-margin);
 }
 
 body {

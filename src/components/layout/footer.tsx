@@ -24,7 +24,7 @@ export function Footer({
     <footer id="kontak" className="border-t border-border bg-[#03082b]">
       <div className="section-shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1fr]">
         <div>
-          <BrandLogo priority variant="mark" />
+          <BrandLogo priority size={88} />
           <p className="mt-5 max-w-sm text-sm leading-6 text-foreground-muted">
             {settings.siteDescription}
           </p>
@@ -32,7 +32,7 @@ export function Footer({
 
         <div>
           <h2 className="font-heading text-sm font-bold text-foreground">
-            Navigasi
+            {settings.footerNavigationHeading}
           </h2>
           <ul className="mt-4 space-y-1">
             {navigation.map((item) => (
@@ -53,7 +53,7 @@ export function Footer({
 
         <div>
           <h2 className="font-heading text-sm font-bold text-foreground">
-            Admin WhatsApp
+            {settings.footerAdminsHeading}
           </h2>
           <ul className="mt-4 space-y-1">
             {admins.map((admin) => {
@@ -77,7 +77,7 @@ export function Footer({
                     </a>
                   ) : (
                     <span className="inline-flex min-h-11 items-center text-sm text-foreground-muted/70">
-                      {admin.name} — belum aktif
+                      {admin.name} {settings.footerInactiveSuffix}
                     </span>
                   )}
                 </li>
@@ -88,7 +88,7 @@ export function Footer({
 
         <div>
           <h2 className="font-heading text-sm font-bold text-foreground">
-            Saluran
+            {settings.footerChannelsHeading}
           </h2>
           <ul className="mt-4 space-y-1">
             {channels.map((channel) => (
@@ -109,7 +109,7 @@ export function Footer({
                   </a>
                 ) : (
                   <span className="inline-flex min-h-11 items-center text-sm text-foreground-muted/70">
-                    {channel.title} — belum aktif
+                    {channel.title} {settings.footerInactiveSuffix}
                   </span>
                 )}
               </li>
@@ -129,13 +129,13 @@ export function Footer({
               href="/kebijakan-privasi"
               className="inline-flex min-h-11 items-center hover:text-brand-cyan"
             >
-              Kebijakan Privasi
+              {settings.footerPrivacyLabel}
             </a>
             <a
               href="/syarat-layanan"
               className="inline-flex min-h-11 items-center hover:text-brand-cyan"
             >
-              Syarat Layanan
+              {settings.footerTermsLabel}
             </a>
           </div>
         </div>

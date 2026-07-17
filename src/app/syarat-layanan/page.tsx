@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 
 import { PolicyPage } from "@/components/layout/policy-page";
+import { TERMS_POLICY_METADATA } from "@/lib/policies";
 
 export const metadata: Metadata = {
-  title: "Syarat Layanan",
-  description:
-    "Syarat penggunaan website DLMURAH sebagai pusat informasi dan penghubung komunikasi melalui WhatsApp.",
-  alternates: { canonical: "/syarat-layanan" },
+  title: TERMS_POLICY_METADATA.title,
+  description: TERMS_POLICY_METADATA.seoDescription,
+  alternates: { canonical: TERMS_POLICY_METADATA.canonicalPath },
 };
 
 export default function TermsPage() {
   return (
     <PolicyPage
-      title="Syarat Layanan"
-      description="Ketentuan dasar penggunaan website DLMURAH dan komunikasi dengan admin melalui WhatsApp."
+      title={TERMS_POLICY_METADATA.title}
+      description={TERMS_POLICY_METADATA.description}
+      lastUpdated={TERMS_POLICY_METADATA.lastUpdated}
     >
       <h2>1. Fungsi website</h2>
       <p>

@@ -2,11 +2,8 @@ import { draftMode } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { env } from "@/lib/env";
+import { safePreviewRedirectPath } from "@/lib/preview";
 import { secureCompare } from "@/lib/security";
-
-function safeRedirectPath(value: string | null): string {
-  return value?.startsWith("/") && !value.startsWith("//") ? value : "/";
-}
 
 export async function GET(request: NextRequest) {
   const configuredSecret = env.CONTENTFUL_PREVIEW_SECRET;
@@ -31,7 +28,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.redirect(
     new URL(
-      safeRedirectPath(request.nextUrl.searchParams.get("redirect")),
+      safePreviewRedirectPath(request.nextUrl.searchParams.get("redirect")),
       request.url,
     ),
   );

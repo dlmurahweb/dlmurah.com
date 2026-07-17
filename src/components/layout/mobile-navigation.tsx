@@ -18,15 +18,15 @@ import type { NavigationItem } from "@/types/site";
 
 export function MobileNavigation({
   activeHref,
+  ctaLabel,
   navigation,
   whatsappHref,
 }: {
   activeHref?: string;
+  ctaLabel: string;
   navigation: NavigationItem[];
   whatsappHref: string;
 }) {
-  const whatsappExternal = whatsappHref.startsWith("https://");
-
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -42,7 +42,7 @@ export function MobileNavigation({
       <SheetContent side="right" className="p-0">
         <SheetHeader className="border-b border-border p-5 pr-16">
           <SheetTitle>
-            <BrandLogo priority />
+            <BrandLogo priority size={72} />
           </SheetTitle>
           <SheetDescription>Menu utama DLMURAH</SheetDescription>
         </SheetHeader>
@@ -73,16 +73,12 @@ export function MobileNavigation({
             <Button variant="whatsapp" size="lg" className="w-full" asChild>
               <a
                 href={whatsappHref}
-                target={whatsappExternal ? "_blank" : undefined}
-                rel={whatsappExternal ? "noopener noreferrer" : undefined}
-                data-analytics-event={
-                  whatsappExternal ? "whatsapp_click" : "navigation_click"
-                }
+                data-analytics-event="navigation_click"
                 data-source="mobile_cta"
-                data-label="Chat di WhatsApp"
+                data-label={ctaLabel}
               >
                 <MessageCircle aria-hidden="true" />
-                Chat di WhatsApp
+                {ctaLabel}
               </a>
             </Button>
           </SheetClose>

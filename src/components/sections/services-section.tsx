@@ -15,23 +15,20 @@ export function ServicesSection({
     <section id="layanan" className="section-space">
       <div className="section-shell">
         <SectionHeading
-          eyebrow="PILIH KEBUTUHAN"
+          eyebrow={homepage.servicesEyebrow}
           title={homepage.servicesHeading}
           description={homepage.servicesDescription}
         />
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className={index === 0 ? "lg:row-span-2" : undefined}
-            >
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service) => (
+            <div key={service.id}>
               <ServiceCard
                 service={service}
+                homepage={homepage}
                 admin={admins.find(
                   (admin) => admin.id === service.whatsappAdminId,
                 )}
-                featured={index === 0}
               />
             </div>
           ))}

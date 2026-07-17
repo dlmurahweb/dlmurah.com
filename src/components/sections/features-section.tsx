@@ -1,9 +1,15 @@
 import { CrystalDecoration } from "@/components/brand/crystal-decoration";
 import { FeatureCard } from "@/components/cards/feature-card";
 import { SectionHeading } from "@/components/sections/section-heading";
-import type { Feature } from "@/types/site";
+import type { Feature, HomePageContent } from "@/types/site";
 
-export function FeaturesSection({ features }: { features: Feature[] }) {
+export function FeaturesSection({
+  features,
+  homepage,
+}: {
+  features: Feature[];
+  homepage: HomePageContent;
+}) {
   return (
     <section className="border-y border-border bg-[#071044] section-space">
       <div className="section-shell grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
@@ -19,21 +25,25 @@ export function FeaturesSection({ features }: { features: Feature[] }) {
           <CrystalDecoration className="absolute top-8 left-[20%] h-60 w-40 -rotate-12" />
           <CrystalDecoration className="absolute right-[16%] bottom-6 h-44 w-28 rotate-[18deg] opacity-55" />
           <p className="absolute bottom-8 left-8 max-w-xs font-heading text-3xl leading-tight font-bold text-foreground">
-            Konfirmasi detail sebelum melanjutkan.
+            {homepage.featuresVisualCaption}
           </p>
         </div>
 
         <div>
           <SectionHeading
-            eyebrow="ALASAN MEMILIH"
-            title="Kenapa Memilih DLMURAH?"
-            description="Bukan janji tanpa risiko—fokus kami adalah jalur komunikasi yang jelas dan kontak yang mudah diperiksa."
+            eyebrow={homepage.featuresEyebrow}
+            title={homepage.featuresHeading}
+            description={homepage.featuresDescription}
           />
-          <div className="mt-10">
-            {features.map((feature) => (
-              <FeatureCard key={feature.id} feature={feature} />
+          <ol className="mt-10 border-y border-border/80">
+            {features.map((feature, index) => (
+              <FeatureCard
+                key={feature.id}
+                feature={feature}
+                index={index + 1}
+              />
             ))}
-          </div>
+          </ol>
         </div>
       </div>
     </section>

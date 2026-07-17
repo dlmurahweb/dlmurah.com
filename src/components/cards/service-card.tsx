@@ -4,24 +4,21 @@ import { BrandIcon } from "@/components/brand/brand-icon";
 import { SurfaceCard } from "@/components/cards/surface-card";
 import { Button } from "@/components/ui/button";
 import { createAdminWhatsAppLink } from "@/lib/whatsapp";
-import type { Service, WhatsAppAdmin } from "@/types/site";
+import type { HomePageContent, Service, WhatsAppAdmin } from "@/types/site";
 
 export function ServiceCard({
   admin,
-  featured = false,
+  homepage,
   service,
 }: {
   admin?: WhatsAppAdmin;
-  featured?: boolean;
+  homepage: HomePageContent;
   service: Service;
 }) {
   const href = createAdminWhatsAppLink(admin, service.whatsappPrefilledMessage);
 
   return (
-    <SurfaceCard
-      interactive
-      className={`group flex h-full flex-col p-6 sm:p-7 ${featured ? "md:row-span-2" : ""}`}
-    >
+    <SurfaceCard interactive className="group flex h-full flex-col p-6 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <span className="grid size-11 place-items-center border border-brand-cyan/25 bg-brand-cyan/10 text-brand-cyan">
           <BrandIcon name={service.iconKey} />
@@ -54,13 +51,13 @@ export function ServiceCard({
               data-label={service.title}
             >
               <MessageCircle aria-hidden="true" />
-              Hubungi admin
+              {homepage.serviceCtaLabel}
               <ArrowUpRight aria-hidden="true" />
             </a>
           </Button>
         ) : (
           <Button variant="ghost" className="px-0" disabled>
-            Kontak belum aktif
+            {homepage.inactiveContactLabel}
           </Button>
         )}
       </div>

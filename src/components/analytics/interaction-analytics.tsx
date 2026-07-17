@@ -3,13 +3,10 @@
 import { useEffect } from "react";
 import { track } from "@vercel/analytics";
 
-const ALLOWED_PROPERTIES = [
-  "source",
-  "label",
-  "admin",
-  "service",
-  "channel",
-] as const;
+import {
+  createAnalyticsProperties,
+  isAllowedAnalyticsEvent,
+} from "@/lib/analytics";
 
 export function InteractionAnalytics() {
   useEffect(() => {
@@ -20,13 +17,9 @@ export function InteractionAnalytics() {
       const element = target.closest<HTMLElement>("[data-analytics-event]");
       const eventName = element?.dataset.analyticsEvent;
       if (!element || !eventName) return;
+      if (!isAllowedAnalyticsEvent(eventName)) return;
 
-      const properties = Object.fromEntries(
-        ALLOWED_PROPERTIES.flatMap((property) => {
-          const value = element.dataset[property];
-          return value ? [[property, value.slice(0, 120)]] : [];
-        }),
-      );
+      const properties = createAnalyticsProperties(element.dataset);
 
       track(eventName, properties);
     };

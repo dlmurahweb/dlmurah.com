@@ -4,13 +4,13 @@ import { AngularFrame } from "@/components/brand/angular-frame";
 import { RichText } from "@/components/ui/rich-text";
 import type { HomePageContent } from "@/types/site";
 
-const values = [
-  { icon: LockKeyhole, label: "Jalur kontak yang mudah diperiksa" },
-  { icon: KeyRound, label: "Admin dipisahkan berdasarkan kebutuhan" },
-  { icon: ShieldCheck, label: "Konfirmasi detail sebelum transaksi" },
-];
-
 export function AboutSection({ homepage }: { homepage: HomePageContent }) {
+  const values = [
+    { icon: LockKeyhole, label: homepage.aboutValueOneLabel },
+    { icon: KeyRound, label: homepage.aboutValueTwoLabel },
+    { icon: ShieldCheck, label: homepage.aboutValueThreeLabel },
+  ];
+
   return (
     <section
       id="tentang"
@@ -19,7 +19,7 @@ export function AboutSection({ homepage }: { homepage: HomePageContent }) {
       <div className="section-shell grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
         <div>
           <p className="text-xs font-extrabold tracking-[0.16em] text-brand-cyan uppercase">
-            PUSAT INFORMASI RESMI
+            {homepage.aboutEyebrow}
           </p>
           <h2 className="mt-3 font-heading text-[clamp(2rem,5vw,3.25rem)] leading-[1.03] font-bold tracking-[-0.045em] text-foreground">
             {homepage.aboutHeading}
@@ -31,7 +31,7 @@ export function AboutSection({ homepage }: { homepage: HomePageContent }) {
 
         <AngularFrame accent className="p-7 sm:p-9">
           <p className="font-heading text-sm font-bold tracking-[0.12em] text-brand-ice uppercase">
-            Nilai layanan
+            {homepage.aboutValuesHeading}
           </p>
           <div className="mt-6 space-y-1">
             {values.map(({ icon: Icon, label }) => (

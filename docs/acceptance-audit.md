@@ -1,6 +1,6 @@
 # Acceptance Criteria Audit
 
-Tanggal audit: 16 Juli 2026
+Tanggal audit: 17 Juli 2026
 
 ## Lulus pada kode dan produksi
 
@@ -22,7 +22,9 @@ Tanggal audit: 16 Juli 2026
 - Panduan CMS dan deployment tersedia.
 - Release baru tersedia di `https://www.dlmurah.com` dengan SSL dan redirect
   apex yang benar.
-- Production Playwright 19/19 lulus.
+- Snapshot Production Playwright 19/19 lulus sebelum remediation lokal terbaru.
+- Suite lokal setelah remediation mencakup 55 unit test dan 33
+  E2E/accessibility/responsive/visual regression test.
 - Sebelas content model dan sample entry tersedia serta Published pada space
   Contentful DLMURAH.
 - Owner dapat mengubah nomor, link, layanan, statistik, dan konten melalui model
@@ -50,10 +52,25 @@ sampai data bisnis yang disetujui pemilik tersedia.
 ## Bukti verifikasi
 
 - Commit runtime produksi: `01fcfba`.
-- `pnpm install --frozen-lockfile` — lulus.
-- `pnpm format:check`, lint, type-check, unit, build — lulus.
-- Playwright lokal dan produksi — 19/19 lulus.
-- Unit test — 7/7 lulus, termasuk regresi error Contentful SDK.
-- Delivery API — seluruh 11 content type mengembalikan entry Published sesuai
-  sample dataset.
+- `pnpm install --frozen-lockfile` lulus pada baseline release.
+- `pnpm format:check`, `pnpm lint`, `pnpm type-check`, `pnpm test:unit`, dan
+  `pnpm build` lulus pada remediation lokal terbaru.
+- Playwright lokal 33/33 lulus, termasuk visual regression pada 390, 1024, dan
+  1440 px serta regression offset anchor internal terhadap sticky header dan
+  focus return drawer mobile setelah `Escape`, readable measure policy, serta
+  fallback action channel nonaktif.
+- Playwright produksi snapshot 19/19 lulus sebelum remediation lokal terbaru.
+- Unit test 55/55 lulus, termasuk regresi error Contentful SDK, guard nomor
+  WhatsApp, token motion, merge force seed Contentful, dan sinkronisasi field
+  fallback/model/sample CMS, serta keamanan sample data sebelum verifikasi
+  pemilik, struktur singleton/koleksi sample, sanitasi URL CMS, dan whitelist
+  analytics tanpa data privat, renderer Rich Text tanpa HTML arbitrer, serta
+  perbandingan secret endpoint, redirect preview internal-only, dan boundary
+  token runtime/client, redaction error setup Contentful, serta header secret
+  revalidation, boundary Preview/Delivery Contentful, serta redaction log
+  fallback runtime Contentful, serta boundary komponen dari object Contentful
+  mentah, surface komponen client terbatas, serta inventory field owner guide
+  dan path preview Contentful, kontras token cyan action/focus, serta hover lift
+- Delivery API mengembalikan seluruh 11 content type Published sesuai sample
+  dataset pada audit production sebelumnya.
 - Lighthouse produksi mobile 97/100/100/100; desktop 100/100/100/100.

@@ -7,10 +7,12 @@ import { Button } from "@/components/ui/button";
 export function PolicyPage({
   children,
   description,
+  lastUpdated,
   title,
 }: {
   children: React.ReactNode;
   description: string;
+  lastUpdated: string;
   title: string;
 }) {
   return (
@@ -30,7 +32,7 @@ export function PolicyPage({
       </header>
 
       <main id="main-content" className="section-shell py-14 sm:py-20">
-        <div className="max-w-3xl">
+        <div className="max-w-[65ch]">
           <p className="text-xs font-extrabold tracking-[0.16em] text-brand-cyan uppercase">
             INFORMASI DLMURAH
           </p>
@@ -41,11 +43,11 @@ export function PolicyPage({
             {description}
           </p>
           <p className="mt-4 text-sm text-foreground-muted">
-            Terakhir diperbarui: 15 Juli 2026
+            Terakhir diperbarui: {lastUpdated}
           </p>
         </div>
 
-        <article className="policy-copy mt-12 max-w-3xl border-t border-border pt-10">
+        <article className="policy-copy mt-12 max-w-[65ch] border-t border-border pt-10">
           {children}
         </article>
       </main>

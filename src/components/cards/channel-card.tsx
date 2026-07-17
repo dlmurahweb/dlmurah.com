@@ -1,11 +1,17 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 import { BrandIcon } from "@/components/brand/brand-icon";
 import { AngularFrame } from "@/components/brand/angular-frame";
 import { Button } from "@/components/ui/button";
-import type { WhatsAppChannel } from "@/types/site";
+import type { HomePageContent, WhatsAppChannel } from "@/types/site";
 
-export function ChannelCard({ channel }: { channel: WhatsAppChannel }) {
+export function ChannelCard({
+  channel,
+  homepage,
+}: {
+  channel: WhatsAppChannel;
+  homepage: HomePageContent;
+}) {
   const active = Boolean(channel.isActive && channel.url);
 
   return (
@@ -39,16 +45,30 @@ export function ChannelCard({ channel }: { channel: WhatsAppChannel }) {
               data-analytics-event="channel_click"
               data-source="channel_card"
               data-channel={channel.title}
-              data-label="Buka Saluran"
+              data-label={homepage.channelCtaLabel}
             >
-              Buka Saluran
+              {homepage.channelCtaLabel}
               <ArrowUpRight aria-hidden="true" />
             </a>
           </Button>
         ) : (
-          <Button variant="secondary" disabled>
-            Saluran belum aktif
-          </Button>
+          <div className="space-y-4">
+            <p className="text-sm leading-6 text-foreground-muted">
+              {homepage.inactiveChannelMessage}
+            </p>
+            <Button variant="secondary" asChild>
+              <a
+                href="#pilih-admin"
+                data-analytics-event="navigation_click"
+                data-source="channel_card_inactive"
+                data-channel={channel.title}
+                data-label={homepage.inactiveChannelCtaLabel}
+              >
+                {homepage.inactiveChannelCtaLabel}
+                <ArrowRight aria-hidden="true" />
+              </a>
+            </Button>
+          </div>
         )}
       </div>
     </AngularFrame>

@@ -50,6 +50,14 @@ Setelah secret Vercel tersedia, buat webhook Contentful:
 Respons `200` menunjukkan cache ditandai kedaluwarsa. Respons `401` berarti
 secret salah; `503` berarti secret belum dikonfigurasi di Vercel.
 
+Model cache runtime:
+
+- fetch Contentful server-side memakai tag `contentful` dan revalidation lima
+  menit;
+- route homepage tidak memakai TTL terpisah;
+- webhook yang sah menginvalidasi tag `contentful` dan path `/`;
+- perubahan baru terlihat pada request berikutnya setelah invalidation selesai.
+
 ## Analytics
 
 Aktifkan **Web Analytics** pada project Vercel. Kode hanya mengirim page view dan

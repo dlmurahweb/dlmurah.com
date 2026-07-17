@@ -1,25 +1,20 @@
-import { ArrowDown, ArrowUpRight, Check, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { ArrowDown, Check, MessageCircle } from "lucide-react";
 
 import { CrystalDecoration } from "@/components/brand/crystal-decoration";
 import { EnergyLine } from "@/components/brand/energy-line";
 import { HeroAmbientMotion } from "@/components/brand/hero-ambient-motion";
-import { VaultIllustration } from "@/components/brand/vault-illustration";
 import { Button } from "@/components/ui/button";
-import { createAdminWhatsAppLink } from "@/lib/whatsapp";
-import type { Feature, HomePageContent, WhatsAppAdmin } from "@/types/site";
+import type { Feature, HomePageContent } from "@/types/site";
 
 export function HeroSection({
   features,
   homepage,
-  primaryAdmin,
 }: {
   features: Feature[];
   homepage: HomePageContent;
-  primaryAdmin?: WhatsAppAdmin;
 }) {
-  const whatsappHref = createAdminWhatsAppLink(primaryAdmin);
-  const primaryHref = whatsappHref ?? homepage.primaryCtaTarget;
-  const primaryExternal = primaryHref.startsWith("https://");
+  const primaryHref = "#pilih-admin";
   const trustItems = features.slice(0, 3).map((feature) => feature.title);
 
   return (
@@ -48,17 +43,12 @@ export function HeroSection({
             <Button variant="whatsapp" size="lg" asChild>
               <a
                 href={primaryHref}
-                target={primaryExternal ? "_blank" : undefined}
-                rel={primaryExternal ? "noopener noreferrer" : undefined}
-                data-analytics-event={
-                  primaryExternal ? "whatsapp_click" : "hero_cta_click"
-                }
+                data-analytics-event="hero_cta_click"
                 data-source="hero"
                 data-label={homepage.primaryCtaLabel}
               >
                 <MessageCircle aria-hidden="true" />
                 {homepage.primaryCtaLabel}
-                {primaryExternal ? <ArrowUpRight aria-hidden="true" /> : null}
               </a>
             </Button>
             <Button variant="secondary" size="lg" asChild>
@@ -90,9 +80,16 @@ export function HeroSection({
           <div className="logo-aura" aria-hidden="true" />
           <CrystalDecoration className="absolute -top-4 -left-3 z-10 h-28 w-20 rotate-[-16deg] opacity-70" />
           <CrystalDecoration className="absolute right-0 bottom-10 z-10 h-20 w-14 rotate-12 opacity-50" />
-          <div className="angular-frame relative aspect-square border border-brand-cyan/25 bg-surface-glass p-5 sm:p-8">
-            <div className="absolute inset-4 border border-brand-royal/40 sm:inset-7" />
-            <VaultIllustration className="relative z-10 h-full w-full drop-shadow-[0_24px_50px_rgb(3_8_43_/_0.55)]" />
+          <div className="relative aspect-square border border-brand-cyan/25 bg-surface-glass p-2 shadow-[0_28px_80px_rgb(2_7_35_/_0.58)] sm:p-3">
+            <Image
+              src="/brand/logo.webp"
+              alt="Logo DLMURAH"
+              width={1024}
+              height={1024}
+              priority
+              sizes="(min-width: 1024px) 560px, (min-width: 640px) 70vw, 90vw"
+              className="relative z-10 h-full w-full object-contain"
+            />
           </div>
         </div>
       </div>

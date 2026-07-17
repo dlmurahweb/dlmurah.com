@@ -3,7 +3,7 @@ import type { ProcessStep } from "@/types/site";
 
 export function ProcessCard({ step }: { step: ProcessStep }) {
   return (
-    <article className="relative grid grid-cols-[3.5rem_1fr] gap-4 pb-10 md:block md:pb-0">
+    <li className="relative grid grid-cols-[3.5rem_1fr] gap-4 pb-10 md:block md:pb-0">
       <div className="relative z-10 grid size-14 place-items-center border border-brand-cyan/35 bg-background font-heading text-sm font-bold text-brand-cyan">
         {step.stepNumber}
       </div>
@@ -19,6 +19,6 @@ export function ProcessCard({ step }: { step: ProcessStep }) {
           {step.description}
         </p>
       </div>
-    </article>
+    </li>
   );
 }

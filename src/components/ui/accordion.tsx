@@ -42,7 +42,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex min-h-14 flex-1 items-center justify-between border border-transparent py-4 text-left font-heading text-base font-bold text-foreground transition-colors outline-none hover:text-brand-ice focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-brand-cyan",
+          "group/accordion-trigger relative flex min-h-14 flex-1 items-center justify-between gap-4 border border-transparent px-5 py-4 text-left font-heading text-base font-bold text-foreground transition-colors outline-none hover:text-brand-ice focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-brand-cyan sm:px-6",
           className,
         )}
         {...props}
@@ -69,12 +69,12 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="grid grid-rows-[0fr] overflow-hidden text-sm transition-[grid-template-rows] duration-[240ms] ease-[var(--ease-out-quart)] data-[state=open]:grid-rows-[1fr] motion-reduce:transition-none"
       {...props}
     >
       <div
         className={cn(
-          "h-(--radix-accordion-content-height) pt-0 pb-5 leading-7 text-foreground-muted [&_a]:text-brand-cyan [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-brand-ice [&_p:not(:last-child)]:mb-4",
+          "min-h-0 overflow-hidden px-5 pt-0 pb-5 leading-7 text-foreground-muted sm:px-6 [&_a]:text-brand-cyan [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-brand-ice [&_p:not(:last-child)]:mb-4",
           className,
         )}
       >

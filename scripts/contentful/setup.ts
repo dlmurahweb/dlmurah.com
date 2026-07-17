@@ -8,8 +8,10 @@ import {
 } from "contentful-management";
 import { z } from "zod";
 
+import { localizeFields, mergeLocalizedFields } from "./entry-fields";
 import { isContentfulNotFound } from "./errors";
 import { CONTENT_MODEL_DEFINITIONS } from "./model-definitions";
+import { redactContentfulErrorMessage } from "./redaction";
 import { SAMPLE_ENTRIES } from "./sample-entries";
 
 config({ path: ".env.local", quiet: true });
@@ -113,17 +115,6 @@ async function upsertContentType(
   }
 }
 
-function localizeFields(
-  fields: Record<string, unknown>,
-  locale: string,
-): Record<string, Record<string, unknown>> {
-  return Object.fromEntries(
-    Object.entries(fields)
-      .filter(([, value]) => value !== undefined)
-      .map(([fieldId, value]) => [fieldId, { [locale]: value }]),
-  );
-}
-
 async function seedEntry(
   client: PlainClientAPI,
   sample: (typeof SAMPLE_ENTRIES)[number],
@@ -142,7 +133,7 @@ async function seedEntry(
 
     entry = await client.entry.update(
       { entryId: sample.id },
-      { ...entry, fields: localizedFields },
+      { ...entry, fields: mergeLocalizedFields(entry.fields, localizedFields) },
     );
     if (isDraft(entry) || isUpdated(entry)) {
       await client.entry.publish({ entryId: sample.id }, entry);
@@ -192,13 +183,13 @@ async function main() {
 
   console.log("Setup Contentful selesai.");
   console.log(
-    "Admin dan saluran contoh tetap nonaktif. Ganti nomor/URL placeholder sebelum mengaktifkannya.",
+    "Admin dan saluran contoh tetap nonaktif. Isi nomor/URL resmi dan uji link sebelum mengaktifkannya.",
   );
 }
 
 main().catch((error: unknown) => {
   const rawMessage = error instanceof Error ? error.message : String(error);
-  const message = rawMessage.replace(/Bearer\s+[^"\s]+/gi, "Bearer [REDACTED]");
+  const message = redactContentfulErrorMessage(rawMessage);
   console.error(`Setup Contentful gagal: ${message}`);
   process.exitCode = 1;
 });

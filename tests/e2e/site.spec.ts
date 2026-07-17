@@ -1,6 +1,11 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import {
+  PRIVACY_POLICY_METADATA,
+  TERMS_POLICY_METADATA,
+} from "../../src/lib/policies";
+
 const viewports = [
   { width: 360, height: 800 },
   { width: 390, height: 844 },
@@ -74,14 +79,62 @@ test("mobile navigation opens, exposes the primary action, and closes with Escap
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
 
-  await page.getByRole("button", { name: "Buka menu navigasi" }).click();
+  const trigger = page.getByRole("button", { name: "Buka menu navigasi" });
+
+  await trigger.click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText("Chat di WhatsApp")).toBeVisible();
+  await expect(dialog.getByText("Pilih Admin")).toBeVisible();
 
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
+  await expect(trigger).toBeFocused();
 });
+
+test("compact navigation uses the simplified brand mark", async ({ page }) => {
+  await page.goto("/");
+
+  await expect(page.locator("header img").first()).toHaveAttribute(
+    "src",
+    /lock-mark/,
+  );
+});
+
+test("generic CTAs route to admin selection instead of opening WhatsApp", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await expect(
+    page.locator("[data-source='header_cta'][data-label='Pilih Admin']"),
+  ).toHaveAttribute("href", "#pilih-admin");
+  await expect(
+    page.locator("[data-source='hero'][data-label='Mulai Transaksi']"),
+  ).toHaveAttribute("href", "#pilih-admin");
+  await expect(
+    page.locator("[data-source='final_cta'][data-label='Pilih Admin']"),
+  ).toHaveAttribute("href", "#pilih-admin");
+});
+
+for (const width of [1023, 1024, 1279, 1280]) {
+  test(`header exposes a conversion path at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 768 });
+    await page.goto("/");
+
+    if (width < 1024) {
+      await expect(
+        page.getByRole("button", { name: "Buka menu navigasi" }),
+      ).toBeVisible();
+      return;
+    }
+
+    const headerCta = page.locator(
+      "[data-source='header_cta'][data-label='Pilih Admin']",
+    );
+    await expect(headerCta).toBeVisible();
+    await expect(headerCta).toHaveAttribute("href", "#pilih-admin");
+  });
+}
 
 test("FAQ is operable from the keyboard", async ({ page }) => {
   await page.goto("/#faq");
@@ -93,6 +146,31 @@ test("FAQ is operable from the keyboard", async ({ page }) => {
   await trigger.focus();
   await page.keyboard.press("Enter");
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
+});
+
+test("FAQ accordion reveal does not animate height", async ({ page }) => {
+  await page.goto("/#faq");
+  const trigger = page
+    .locator("[data-analytics-event='faq_interaction']")
+    .first();
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+
+  const transition = await page
+    .locator("[data-slot='accordion-content']")
+    .first()
+    .evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        display: style.display,
+        gridTemplateRows: style.gridTemplateRows,
+        transitionProperty: style.transitionProperty,
+      };
+    });
+
+  expect(transition.display).toBe("grid");
+  expect(transition.transitionProperty).toContain("grid-template-rows");
+  expect(transition.transitionProperty).not.toContain("height");
 });
 
 test("external links use safe relationship attributes", async ({ page }) => {
@@ -115,11 +193,33 @@ test("internal anchor links resolve to existing sections", async ({ page }) => {
     .evaluateAll((links) => [
       ...new Set(links.map((link) => link.getAttribute("href") ?? "")),
     ]);
+  const headerHeight = await page
+    .locator("header")
+    .evaluate((header) => header.getBoundingClientRect().height);
 
   for (const href of hrefs) {
     expect(href).toMatch(/^#[A-Za-z][\w-]*$/);
-    await expect(page.locator(href)).toHaveCount(1);
+    const target = page.locator(href);
+    await expect(target).toHaveCount(1);
+
+    const scrollMarginTop = await target.evaluate((element) =>
+      Number.parseFloat(getComputedStyle(element).scrollMarginTop),
+    );
+    expect(scrollMarginTop).toBeGreaterThanOrEqual(headerHeight);
   }
+});
+
+test("process and feature sections use semantic ordered lists", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await expect(page.locator("#cara-kerja ol > li")).toHaveCount(4);
+  await expect(
+    page
+      .getByRole("heading", { name: "Kenapa Memilih DLMURAH?" })
+      .locator("xpath=ancestor::section[1]//ol/li"),
+  ).not.toHaveCount(0);
 });
 
 test("WhatsApp links are normalized when present", async ({ page }) => {
@@ -132,6 +232,7 @@ test("WhatsApp links are normalized when present", async ({ page }) => {
 
   for (const href of hrefs) {
     expect(href).toMatch(/^https:\/\/wa\.me\/\d{8,15}(?:\?text=.+)?$/);
+    expect(href).not.toContain("620000000000");
   }
 });
 
@@ -140,12 +241,32 @@ test("policy routes and custom not-found page are available", async ({
 }) => {
   await page.goto("/kebijakan-privasi");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Kebijakan Privasi",
+    PRIVACY_POLICY_METADATA.title,
+  );
+  await expect(
+    page.getByText(PRIVACY_POLICY_METADATA.description),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      `Terakhir diperbarui: ${PRIVACY_POLICY_METADATA.lastUpdated}`,
+    ),
+  ).toBeVisible();
+  await expect(page.locator("link[rel='canonical']")).toHaveAttribute(
+    "href",
+    new RegExp(`${PRIVACY_POLICY_METADATA.canonicalPath}$`),
   );
 
   await page.goto("/syarat-layanan");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Syarat Layanan",
+    TERMS_POLICY_METADATA.title,
+  );
+  await expect(page.getByText(TERMS_POLICY_METADATA.description)).toBeVisible();
+  await expect(
+    page.getByText(`Terakhir diperbarui: ${TERMS_POLICY_METADATA.lastUpdated}`),
+  ).toBeVisible();
+  await expect(page.locator("link[rel='canonical']")).toHaveAttribute(
+    "href",
+    new RegExp(`${TERMS_POLICY_METADATA.canonicalPath}$`),
   );
 
   const response = await page.goto("/halaman-yang-tidak-ada");
@@ -155,23 +276,85 @@ test("policy routes and custom not-found page are available", async ({
   );
 });
 
+test("policy body keeps a readable desktop measure", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/kebijakan-privasi");
+
+  const measure = await page.locator("article.policy-copy").evaluate((node) => {
+    const probe = document.createElement("span");
+    probe.textContent = "0";
+    probe.style.visibility = "hidden";
+    probe.style.position = "absolute";
+    probe.style.font = getComputedStyle(node).font;
+    node.append(probe);
+    const ch = probe.getBoundingClientRect().width;
+    probe.remove();
+
+    return {
+      width: node.getBoundingClientRect().width,
+      ch,
+    };
+  });
+
+  const approximateCharactersPerLine = measure.width / measure.ch;
+  expect(approximateCharactersPerLine).toBeGreaterThanOrEqual(60);
+  expect(approximateCharactersPerLine).toBeLessThanOrEqual(70);
+});
+
+test("inactive channels provide an admin-selection fallback action", async ({
+  page,
+}) => {
+  await page.goto("/#saluran");
+
+  const fallbackLinks = page.locator(
+    "[data-source='channel_card_inactive'][href='#pilih-admin']",
+  );
+
+  await expect(fallbackLinks).not.toHaveCount(0);
+
+  const disabledChannelButtons = await page
+    .locator("#saluran button:disabled")
+    .count();
+  expect(disabledChannelButtons).toBe(0);
+});
+
 test("metadata, structured data, images, and security headers are valid", async ({
   page,
 }) => {
   const response = await page.goto("/");
+  const html = await page.content();
   expect(response?.headers()["x-content-type-options"]).toBe("nosniff");
   expect(response?.headers()["x-frame-options"]).toBe("DENY");
   expect(response?.headers()["content-security-policy"]).toContain(
     "frame-ancestors 'none'",
   );
+  expect(html).not.toContain("620000000000");
 
   await expect(page.locator("link[rel='canonical']")).toHaveAttribute(
     "href",
     /^https?:\/\//,
   );
-  await expect(page.locator("script[type='application/ld+json']")).toHaveCount(
-    1,
+  const structuredDataScript = page.locator(
+    "script[type='application/ld+json']",
   );
+  await expect(structuredDataScript).toHaveCount(1);
+  const structuredDataText = await structuredDataScript.textContent();
+  expect(structuredDataText).not.toContain("620000000000");
+
+  const structuredData = JSON.parse(structuredDataText ?? "{}") as {
+    "@graph"?: Array<{
+      contactPoint?: Array<{ telephone?: string }>;
+    }>;
+  };
+  const contactPhones =
+    structuredData["@graph"]?.flatMap((node) =>
+      (node.contactPoint ?? []).map((contact) => contact.telephone ?? ""),
+    ) ?? [];
+
+  for (const phone of contactPhones) {
+    expect(phone).toMatch(/^\+\d{8,15}$/);
+    expect(phone).not.toBe("+620000000000");
+  }
 
   const brokenImages = await page.locator("img").evaluateAll(
     (images) =>
@@ -226,4 +409,31 @@ test("protected content endpoints fail closed without valid secrets", async ({
 
   const revalidate = await request.post("/api/revalidate");
   expect([401, 503]).toContain(revalidate.status());
+});
+
+test("local revalidation webhook reports invalidated cache targets", async ({
+  request,
+}) => {
+  test.skip(
+    Boolean(process.env.PLAYWRIGHT_BASE_URL),
+    "Valid webhook secret is only configured for the local Playwright server.",
+  );
+
+  const response = await request.post("/api/revalidate", {
+    headers: {
+      Authorization: "Bearer e2e-revalidate-secret",
+    },
+  });
+  expect(response.status()).toBe(200);
+
+  const body = (await response.json()) as {
+    revalidated?: boolean;
+    tag?: string;
+    paths?: string[];
+  };
+  expect(body).toMatchObject({
+    revalidated: true,
+    tag: "contentful",
+    paths: ["/"],
+  });
 });

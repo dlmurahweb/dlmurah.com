@@ -1,10 +1,14 @@
 import "server-only";
 
+import {
+  CONTENTFUL_CACHE_TAG,
+  CONTENTFUL_REVALIDATE_SECONDS,
+  createContentfulRequestConfig,
+} from "@/contentful/request";
 import { env } from "@/lib/env";
 import type { ContentfulCollection } from "@/types/contentful";
 
-export const CONTENTFUL_CACHE_TAG = "contentful";
-export const CONTENTFUL_REVALIDATE_SECONDS = 300;
+export { CONTENTFUL_CACHE_TAG, CONTENTFUL_REVALIDATE_SECONDS };
 
 type FetchContentfulOptions = {
   preview?: boolean;
@@ -25,9 +29,16 @@ export async function fetchContentfulCollection<
   contentType: string,
   { preview = false, query = {} }: FetchContentfulOptions = {},
 ): Promise<ContentfulCollection<TFields>> {
-  const token = preview
-    ? env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-    : env.CONTENTFUL_ACCESS_TOKEN;
+  const { init, token, url } = createContentfulRequestConfig({
+    accessToken: env.CONTENTFUL_ACCESS_TOKEN,
+    contentType,
+    environment: env.CONTENTFUL_ENVIRONMENT,
+    locale: env.CONTENTFUL_LOCALE,
+    preview,
+    previewAccessToken: env.CONTENTFUL_PREVIEW_ACCESS_TOKEN,
+    query,
+    spaceId: env.CONTENTFUL_SPACE_ID ?? "",
+  });
 
   if (!env.CONTENTFUL_SPACE_ID || !token) {
     throw new Error(
@@ -35,38 +46,7 @@ export async function fetchContentfulCollection<
     );
   }
 
-  const host = preview ? "preview.contentful.com" : "cdn.contentful.com";
-  const environment = encodeURIComponent(env.CONTENTFUL_ENVIRONMENT);
-  const url = new URL(
-    `https://${host}/spaces/${encodeURIComponent(env.CONTENTFUL_SPACE_ID)}/environments/${environment}/entries`,
-  );
-
-  url.searchParams.set("content_type", contentType);
-  if (env.CONTENTFUL_LOCALE) {
-    url.searchParams.set("locale", env.CONTENTFUL_LOCALE);
-  }
-  url.searchParams.set("include", "1");
-  url.searchParams.set("limit", "1000");
-
-  for (const [key, value] of Object.entries(query)) {
-    if (value !== undefined) {
-      url.searchParams.set(key, String(value));
-    }
-  }
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    ...(preview
-      ? { cache: "no-store" as const }
-      : {
-          next: {
-            revalidate: CONTENTFUL_REVALIDATE_SECONDS,
-            tags: [CONTENTFUL_CACHE_TAG],
-          },
-        }),
-  });
+  const response = await fetch(url, init);
 
   if (!response.ok) {
     throw new Error(

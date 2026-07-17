@@ -1,12 +1,16 @@
-import { Check } from "lucide-react";
-
 import type { Feature } from "@/types/site";
 
-export function FeatureCard({ feature }: { feature: Feature }) {
+export function FeatureCard({
+  feature,
+  index,
+}: {
+  feature: Feature;
+  index: number;
+}) {
   return (
-    <article className="grid grid-cols-[2.75rem_1fr] gap-4 border-b border-border py-6 first:pt-0 last:border-b-0 last:pb-0">
-      <span className="grid size-11 place-items-center bg-brand-cyan/10 text-brand-cyan">
-        <Check aria-hidden="true" className="size-5" />
+    <li className="grid grid-cols-[3.25rem_1fr] gap-4 border-b border-border/80 py-6 last:border-b-0">
+      <span className="font-heading text-sm font-bold text-brand-cyan">
+        {String(index).padStart(2, "0")}
       </span>
       <div>
         <h3 className="font-heading text-lg font-bold text-foreground">
@@ -16,6 +20,6 @@ export function FeatureCard({ feature }: { feature: Feature }) {
           {feature.description}
         </p>
       </div>
-    </article>
+    </li>
   );
 }

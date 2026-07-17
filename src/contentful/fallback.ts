@@ -38,6 +38,12 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     defaultSeoDescription:
       "Hubungi admin DLMURAH untuk layanan jual beli DL/BGL, transaksi akun, dan informasi terbaru melalui WhatsApp.",
     siteUrl: "https://www.dlmurah.com",
+    footerNavigationHeading: "Navigasi",
+    footerAdminsHeading: "Admin WhatsApp",
+    footerChannelsHeading: "Saluran",
+    footerPrivacyLabel: "Kebijakan Privasi",
+    footerTermsLabel: "Syarat Layanan",
+    footerInactiveSuffix: "— belum aktif",
     footerDisclaimer: disclaimer,
     copyrightText: "© DLMURAH. Seluruh hak cipta dilindungi.",
   },
@@ -93,17 +99,60 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     primaryCtaTarget: "#pilih-admin",
     secondaryCtaLabel: "Lihat Layanan",
     secondaryCtaTarget: "#layanan",
+    navigationCtaLabel: "Pilih Admin",
+    navigationCtaCompactLabel: "Admin",
+    servicesEyebrow: "PILIH KEBUTUHAN",
     servicesHeading: "Layanan DLMURAH",
     servicesDescription:
       "Pilih layanan yang sesuai dengan kebutuhanmu dan hubungi admin yang menangani layanan tersebut.",
+    serviceCtaLabel: "Hubungi admin",
+    adminsEyebrow: "KONTAK SESUAI KATEGORI",
+    adminsHeading: "Pilih Admin",
+    adminsDescription:
+      "Pilih admin berdasarkan layanan yang kamu butuhkan agar pesanmu dapat diproses oleh kontak yang sesuai.",
+    adminsWarning:
+      "Nomor yang belum aktif tidak dapat diklik. Gunakan hanya kontak yang tercantum pada website resmi DLMURAH.",
+    adminCtaLabel: "Chat Admin",
+    inactiveContactLabel: "Kontak belum aktif",
+    activeContactFallbackLabel: "Tersedia",
+    inactiveContactFallbackLabel: "Belum aktif",
+    processEyebrow: "ALUR TRANSPARAN",
+    processDescription:
+      "Empat langkah sederhana untuk mengarahkan kebutuhanmu ke admin yang sesuai dan mengonfirmasi setiap detail.",
     howItWorksHeading: "Cara Kerja",
+    featuresEyebrow: "ALASAN MEMILIH",
+    featuresHeading: "Kenapa Memilih DLMURAH?",
+    featuresDescription:
+      "Bukan janji tanpa risiko—fokus kami adalah jalur komunikasi yang jelas dan kontak yang mudah diperiksa.",
+    featuresVisualCaption: "Konfirmasi detail sebelum melanjutkan.",
+    channelsEyebrow: "PEMBARUAN RESMI",
+    channelsHeading: "Ikuti Saluran WhatsApp",
+    channelsDescription:
+      "Gunakan saluran resmi untuk melihat informasi harga, stok, perubahan kontak, dan pengumuman DLMURAH.",
+    channelCtaLabel: "Buka Saluran",
+    inactiveChannelMessage:
+      "Saluran ini belum dibuka untuk publik. Pilih admin sesuai layanan untuk mendapatkan informasi terbaru.",
+    inactiveChannelCtaLabel: "Pilih Admin",
+    aboutEyebrow: "PUSAT INFORMASI RESMI",
     aboutHeading: "Tentang DLMURAH",
     aboutContent: createRichTextDocument(
       "DLMURAH merupakan layanan digital yang membantu komunitas Growtopia terhubung dengan admin untuk kebutuhan jual beli DL/BGL, transaksi akun, dan layanan terkait lainnya. Website ini menjadi pusat informasi dan jalur resmi untuk menghubungi tim DLMURAH melalui WhatsApp.",
     ),
+    aboutValuesHeading: "Nilai layanan",
+    aboutValueOneLabel: "Jalur kontak yang mudah diperiksa",
+    aboutValueTwoLabel: "Admin dipisahkan berdasarkan kebutuhan",
+    aboutValueThreeLabel: "Konfirmasi detail sebelum transaksi",
+    finalCtaEyebrow: "LANJUTKAN MELALUI WHATSAPP",
     finalCtaTitle: "Siap Menghubungi Admin DLMURAH?",
     finalCtaDescription:
       "Pilih layanan yang kamu butuhkan dan lanjutkan percakapan melalui WhatsApp.",
+    finalCtaPrimaryLabel: "Pilih Admin",
+    finalCtaChannelLabel: "Buka Saluran WhatsApp",
+    finalCtaFallbackChannelLabel: "Lihat Saluran",
+    faqEyebrow: "PERTANYAAN UMUM",
+    faqHeading: "Hal yang perlu kamu ketahui",
+    faqDescription:
+      "Periksa alur, kontak, dan status layanan sebelum memulai percakapan.",
     seoTitle: "DLMURAH — Jual Beli DL, BGL, dan Akun",
     seoDescription:
       "Hubungi admin DLMURAH untuk layanan jual beli DL/BGL, transaksi akun, dan informasi terbaru melalui WhatsApp.",

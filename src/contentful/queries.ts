@@ -16,6 +16,7 @@ import {
   mapStatistics,
 } from "./mappers";
 
+import { redactSecretValues } from "@/lib/redaction";
 import type { HomePageData } from "@/types/site";
 
 type Fields = Record<string, unknown>;
@@ -108,7 +109,8 @@ export async function getHomePageData({
       announcement: mapAnnouncement(announcementCollection.items),
     };
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
+    const rawMessage = error instanceof Error ? error.message : "Unknown error";
+    const message = redactSecretValues(rawMessage);
     console.error(`[contentful] Menggunakan fallback: ${message}`);
     return fallback(preview);
   }
