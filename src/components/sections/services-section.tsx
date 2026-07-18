@@ -1,6 +1,7 @@
 import { SectionBackdrop } from "@/components/brand/section-backdrop";
 import { ServiceCard } from "@/components/cards/service-card";
 import { SectionHeading } from "@/components/sections/section-heading";
+import { cn } from "@/lib/utils";
 import type { HomePageContent, Service, WhatsAppAdmin } from "@/types/site";
 
 export function ServicesSection({
@@ -12,6 +13,14 @@ export function ServicesSection({
   homepage: HomePageContent;
   services: Service[];
 }) {
+  const columnClass =
+    {
+      1: "lg:grid-cols-1",
+      2: "lg:grid-cols-2",
+      3: "lg:grid-cols-3",
+      4: "lg:grid-cols-4",
+    }[Math.min(services.length, 4)] ?? "lg:grid-cols-4";
+
   return (
     <section
       id="layanan"
@@ -29,7 +38,7 @@ export function ServicesSection({
         />
 
         <div
-          className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+          className={cn("mt-12 grid gap-4 md:grid-cols-2", columnClass)}
           data-motion-reveal
           data-motion-stagger
         >

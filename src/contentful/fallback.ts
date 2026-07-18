@@ -197,19 +197,6 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
       order: 3,
       isEnabled: true,
     },
-    {
-      id: "service-help",
-      title: "Bantuan Transaksi",
-      slug: "bantuan-transaksi",
-      shortDescription:
-        "Dapatkan arahan dari admin mengenai proses transaksi yang tersedia di DLMURAH.",
-      iconKey: "message",
-      whatsappAdminId: "admin-dl-1",
-      whatsappPrefilledMessage:
-        "Halo Admin DLMURAH, saya membutuhkan bantuan mengenai proses transaksi.",
-      order: 4,
-      isEnabled: true,
-    },
   ],
   admins: [
     {
@@ -301,7 +288,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
       stepNumber: "01",
       title: "Pilih layanan",
       description:
-        "Tentukan apakah kamu ingin membeli atau menjual DL/BGL, akun, atau membutuhkan bantuan transaksi.",
+        "Tentukan apakah kamu ingin membeli atau menjual DL/BGL maupun akun.",
       iconKey: "layers",
       order: 1,
       isEnabled: true,

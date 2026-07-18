@@ -165,6 +165,19 @@ test("admin contacts and channels lead the homepage content", async ({
   );
 });
 
+test("services exclude transaction assistance", async ({ page }) => {
+  await page.goto("/#layanan");
+
+  const serviceHeadings = page.locator("#layanan h3");
+  await expect(serviceHeadings).toHaveCount(3);
+  await expect(serviceHeadings).toHaveText([
+    "Beli DL/BGL",
+    "Jual DL/BGL",
+    "Jual Beli Akun",
+  ]);
+  await expect(page.getByText("Bantuan Transaksi")).toHaveCount(0);
+});
+
 for (const width of [1023, 1024, 1279, 1280]) {
   test(`header exposes a conversion path at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 768 });

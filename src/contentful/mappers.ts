@@ -26,6 +26,11 @@ type Fallbacks = {
   siteSettings: SiteSettings;
 };
 
+const RETIRED_SERVICE_SLUGS = new Set(["bantuan-transaksi"]);
+const CHOOSE_SERVICE_STEP_ID = "step-choose-service";
+const CHOOSE_SERVICE_STEP_DESCRIPTION =
+  "Tentukan apakah kamu ingin membeli atau menjual DL/BGL maupun akun.";
+
 function text(value: unknown, fallback = ""): string {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
 }
@@ -322,7 +327,13 @@ export function mapServices(
       order: order(entry.fields.order),
       isEnabled: boolean(entry.fields.isEnabled, true),
     }))
-    .filter((item) => item.title && item.shortDescription && item.isEnabled)
+    .filter(
+      (item) =>
+        item.title &&
+        item.shortDescription &&
+        item.isEnabled &&
+        !RETIRED_SERVICE_SLUGS.has(item.slug),
+    )
     .sort(byOrder);
 }
 
@@ -393,7 +404,10 @@ export function mapProcessSteps(
       id: entry.sys.id,
       stepNumber: text(entry.fields.stepNumber),
       title: text(entry.fields.title),
-      description: text(entry.fields.description),
+      description:
+        entry.sys.id === CHOOSE_SERVICE_STEP_ID
+          ? CHOOSE_SERVICE_STEP_DESCRIPTION
+          : text(entry.fields.description),
       iconKey: text(entry.fields.iconKey, "circle"),
       order: order(entry.fields.order),
       isEnabled: boolean(entry.fields.isEnabled, true),

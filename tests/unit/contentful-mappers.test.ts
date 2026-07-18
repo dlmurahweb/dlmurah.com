@@ -6,6 +6,8 @@ import {
   mapChannels,
   mapHomepage,
   mapNavigation,
+  mapProcessSteps,
+  mapServices,
   mapSiteSettings,
 } from "../../src/contentful/mappers";
 import { FALLBACK_HOME_PAGE_DATA } from "../../src/contentful/fallback";
@@ -128,6 +130,48 @@ test("channel and announcement mappers discard unsafe external URLs", () => {
   ]);
 
   assert.equal(announcement?.linkUrl, undefined);
+});
+
+test("service mapper omits the retired transaction assistance service", () => {
+  const services = mapServices([
+    entry("buy-dl", {
+      title: "Beli DL/BGL",
+      slug: "beli-dl-bgl",
+      shortDescription: "Beli DL atau BGL melalui admin.",
+      order: 1,
+      isEnabled: true,
+    }),
+    entry("transaction-help", {
+      title: "Bantuan Transaksi",
+      slug: "bantuan-transaksi",
+      shortDescription: "Minta bantuan transaksi melalui admin.",
+      order: 2,
+      isEnabled: true,
+    }),
+  ]);
+
+  assert.deepEqual(
+    services.map((service) => service.slug),
+    ["beli-dl-bgl"],
+  );
+});
+
+test("process mapper removes retired transaction assistance copy", () => {
+  const steps = mapProcessSteps([
+    entry("step-choose-service", {
+      stepNumber: "01",
+      title: "Pilih layanan",
+      description:
+        "Tentukan apakah kamu ingin membeli atau menjual DL/BGL, akun, atau membutuhkan bantuan transaksi.",
+      order: 1,
+      isEnabled: true,
+    }),
+  ]);
+
+  assert.equal(
+    steps[0]?.description,
+    "Tentukan apakah kamu ingin membeli atau menjual DL/BGL maupun akun.",
+  );
 });
 
 test("singleton mappers fall back when CMS URL fields are unsafe", () => {
