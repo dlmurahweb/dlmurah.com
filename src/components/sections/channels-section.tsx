@@ -17,7 +17,11 @@ export function ChannelsSection({
           title={homepage.channelsHeading}
           description={homepage.channelsDescription}
         />
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div
+          className="mt-12 grid gap-5 md:grid-cols-2"
+          data-motion-reveal
+          data-motion-stagger
+        >
           {channels.slice(0, 2).map((channel) => (
             <ChannelCard
               key={channel.id}

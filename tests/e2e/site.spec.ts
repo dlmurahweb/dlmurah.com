@@ -49,6 +49,33 @@ for (const viewport of viewports) {
   });
 }
 
+test("hero stays balanced at the compact desktop breakpoint", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1024, height: 576 });
+  await page.goto("/");
+
+  const layout = await page.locator("#beranda").evaluate((hero) => {
+    const heading = hero.querySelector<HTMLElement>("h1")!;
+    const artwork = hero.querySelector<HTMLElement>(".hero-art")!;
+    const headingStyle = getComputedStyle(heading);
+    const headingBox = heading.getBoundingClientRect();
+    const artworkBox = artwork.getBoundingClientRect();
+
+    return {
+      fontSize: Number.parseFloat(headingStyle.fontSize),
+      lines: Math.round(
+        headingBox.height / Number.parseFloat(headingStyle.lineHeight),
+      ),
+      overlapsArtwork: headingBox.right > artworkBox.left,
+    };
+  });
+
+  expect(layout.fontSize).toBeLessThanOrEqual(48);
+  expect(layout.lines).toBeLessThanOrEqual(3);
+  expect(layout.overlapsArtwork).toBe(false);
+});
+
 test("mobile interactive controls meet the 44px touch-target requirement", async ({
   page,
 }) => {
@@ -91,12 +118,12 @@ test("mobile navigation opens, exposes the primary action, and closes with Escap
   await expect(trigger).toBeFocused();
 });
 
-test("compact navigation uses the simplified brand mark", async ({ page }) => {
+test("header uses the supplied DLMURAH logo", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.locator("header img").first()).toHaveAttribute(
     "src",
-    /lock-mark/,
+    /logo\.webp/,
   );
 });
 
@@ -114,6 +141,28 @@ test("generic CTAs route to admin selection instead of opening WhatsApp", async 
   await expect(
     page.locator("[data-source='final_cta'][data-label='Pilih Admin']"),
   ).toHaveAttribute("href", "#pilih-admin");
+});
+
+test("admin contacts and channels lead the homepage content", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const leadingSectionIds = await page
+    .locator("main#main-content > section")
+    .evaluateAll((sections) =>
+      sections.slice(0, 3).map((section) => section.id),
+    );
+
+  expect(leadingSectionIds).toEqual(["beranda", "kontak", "saluran"]);
+  await expect(
+    page.locator("[data-source='header'][data-label='Kontak']"),
+  ).toHaveAttribute("href", "#kontak");
+  await expect(page.locator("#pilih-admin")).toContainText("Admin Wenly (DL)");
+  await expect(page.locator("#pilih-admin")).toContainText("Admin Icha (DL)");
+  await expect(page.locator("#pilih-admin")).toContainText(
+    "Admin Jual Beli Akun",
+  );
 });
 
 for (const width of [1023, 1024, 1279, 1280]) {
@@ -148,7 +197,9 @@ test("FAQ is operable from the keyboard", async ({ page }) => {
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
 });
 
-test("FAQ accordion reveal does not animate height", async ({ page }) => {
+test("FAQ accordion reveal animates without changing height directly", async ({
+  page,
+}) => {
   await page.goto("/#faq");
   const trigger = page
     .locator("[data-analytics-event='faq_interaction']")
@@ -156,21 +207,67 @@ test("FAQ accordion reveal does not animate height", async ({ page }) => {
   await trigger.click();
   await expect(trigger).toHaveAttribute("aria-expanded", "true");
 
-  const transition = await page
+  const reveal = await page
     .locator("[data-slot='accordion-content']")
     .first()
     .evaluate((element) => {
       const style = getComputedStyle(element);
+      const body = element.querySelector<HTMLElement>(
+        "[data-slot='accordion-content-body']",
+      )!;
       return {
+        animationDuration: style.animationDuration,
+        animationName: style.animationName,
         display: style.display,
         gridTemplateRows: style.gridTemplateRows,
-        transitionProperty: style.transitionProperty,
+        paddingBottom: getComputedStyle(body).paddingBottom,
+        paddingTop: getComputedStyle(body).paddingTop,
+        runningAnimations: element
+          .getAnimations()
+          .filter((animation) => animation.playState === "running").length,
       };
     });
 
-  expect(transition.display).toBe("grid");
-  expect(transition.transitionProperty).toContain("grid-template-rows");
-  expect(transition.transitionProperty).not.toContain("height");
+  expect(reveal.animationDuration).toBe("0.24s");
+  expect(reveal.animationName).not.toBe("none");
+  expect(reveal.display).toBe("grid");
+  expect(parseFloat(reveal.paddingTop)).toBeGreaterThan(0);
+  expect(parseFloat(reveal.paddingBottom)).toBeGreaterThan(
+    parseFloat(reveal.paddingTop),
+  );
+  expect(reveal.runningAnimations).toBeGreaterThan(0);
+
+  const icon = trigger.locator("[data-slot='accordion-trigger-icon']");
+  await expect(icon).toHaveCSS("transform", "matrix(-1, 0, 0, -1, 0, 0)");
+
+  const content = page.locator("[data-slot='accordion-content']").first();
+  const openHeight = await content.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+
+  const closingHeights = await content.evaluate(async (element) => {
+    const animation = element.getAnimations()[0];
+    animation.pause();
+
+    const heightAt = async (time: number) => {
+      animation.currentTime = time;
+      await new Promise(requestAnimationFrame);
+      return element.getBoundingClientRect().height;
+    };
+
+    return {
+      end: await heightAt(239),
+      middle: await heightAt(120),
+      start: await heightAt(0),
+    };
+  });
+
+  expect(closingHeights.start).toBeCloseTo(openHeight, 0);
+  expect(closingHeights.middle).toBeLessThan(closingHeights.start);
+  expect(closingHeights.end).toBeLessThan(1);
 });
 
 test("external links use safe relationship attributes", async ({ page }) => {
@@ -328,6 +425,9 @@ test("metadata, structured data, images, and security headers are valid", async 
   expect(response?.headers()["content-security-policy"]).toContain(
     "frame-ancestors 'none'",
   );
+  expect(response?.headers()["content-security-policy"]).not.toContain(
+    "'unsafe-eval'",
+  );
   expect(html).not.toContain("620000000000");
 
   await expect(page.locator("link[rel='canonical']")).toHaveAttribute(
@@ -399,6 +499,35 @@ test("reduced-motion preference removes ambient animation", async ({
     expect(["0s", "0.01ms", "1e-05s"]).toContain(style.animationDuration);
     expect(["0s", "0.01ms", "1e-05s"]).toContain(style.transitionDuration);
   }
+});
+
+test("homepage reveals off-screen content as it enters the viewport", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const servicesHeading = page.locator("#layanan [data-motion-reveal]").first();
+  await expect(servicesHeading).toHaveCSS("opacity", "0");
+
+  await servicesHeading.scrollIntoViewIfNeeded();
+  await expect(servicesHeading).toHaveCSS("opacity", "1");
+});
+
+test("reduced motion keeps reveal content immediately visible", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const hiddenRevealContent = await page
+    .locator("[data-motion-reveal]")
+    .evaluateAll(
+      (elements) =>
+        elements.filter((element) => getComputedStyle(element).opacity === "0")
+          .length,
+    );
+
+  expect(hiddenRevealContent).toBe(0);
 });
 
 test("protected content endpoints fail closed without valid secrets", async ({

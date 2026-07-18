@@ -7,6 +7,7 @@ type BrandLogoProps = {
   imageClassName?: string;
   priority?: boolean;
   size?: number;
+  variant?: "logo" | "mark";
 };
 
 export function BrandLogo({
@@ -14,11 +15,12 @@ export function BrandLogo({
   imageClassName,
   priority = false,
   size = 56,
+  variant = "logo",
 }: BrandLogoProps) {
   return (
     <span className={cn("inline-flex shrink-0", className)}>
       <Image
-        src="/brand/logo.webp"
+        src={variant === "mark" ? "/brand/lock-mark.webp" : "/brand/logo.webp"}
         alt="DLMURAH"
         width={size}
         height={size}

@@ -202,6 +202,13 @@ test("sample contact data stays inactive before owner verification", () => {
   }
 });
 
+test("sample admin labels identify the requested contacts", () => {
+  assert.deepEqual(
+    sampleEntries("whatsappAdmin").map((entry) => entry.fields.name),
+    ["Admin Wenly (DL)", "Admin Icha (DL)", "Admin Jual Beli Akun"],
+  );
+});
+
 test("sample services only reference seeded admins", () => {
   const adminIds = new Set(
     sampleEntries("whatsappAdmin").map((entry) => entry.id),

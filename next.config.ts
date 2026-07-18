@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -10,9 +12,9 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https://images.ctfassets.net",
   "media-src 'self'",
   "object-src 'none'",
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
-  "upgrade-insecure-requests",
+  ...(isDevelopment ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 
 const nextConfig: NextConfig = {

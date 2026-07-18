@@ -21,7 +21,7 @@ export function Footer({
   settings: SiteSettings;
 }) {
   return (
-    <footer id="kontak" className="border-t border-border bg-[#03082b]">
+    <footer id="site-footer" className="border-t border-border bg-[#03082b]">
       <div className="section-shell grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1fr]">
         <div>
           <BrandLogo priority size={88} />

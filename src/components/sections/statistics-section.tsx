@@ -17,6 +17,8 @@ export function StatisticsSection({ statistics }: { statistics: Statistic[] }) {
     <section aria-label="Informasi layanan" className="relative z-10 -mt-px">
       <div className="section-shell">
         <div
+          data-motion-reveal
+          data-motion-stagger
           className={cn(
             "grid gap-px border-x border-b border-border bg-border",
             statistics.length > 1 && "sm:grid-cols-2",

@@ -9,6 +9,7 @@ import {
 import { z } from "zod";
 
 import { localizeFields, mergeLocalizedFields } from "./entry-fields";
+import { ensureContentTypeViews } from "./content-type-views";
 import { isContentfulNotFound } from "./errors";
 import { CONTENT_MODEL_DEFINITIONS } from "./model-definitions";
 import { redactContentfulErrorMessage } from "./redaction";
@@ -171,6 +172,13 @@ async function main() {
   for (const model of CONTENT_MODEL_DEFINITIONS) {
     await upsertContentType(client, model);
   }
+
+  const viewResult = await ensureContentTypeViews(client);
+  console.log(
+    viewResult.changed
+      ? `${viewResult.contentTypes.length} view content type dibuat/diperbarui.`
+      : `${viewResult.contentTypes.length} view content type sudah tersedia.`,
+  );
 
   for (const sample of SAMPLE_ENTRIES) {
     await seedEntry(

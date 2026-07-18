@@ -214,7 +214,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
   admins: [
     {
       id: "admin-dl-1",
-      name: "Admin DL/BGL 1",
+      name: "Admin Wenly (DL)",
       role: "Admin DL/BGL",
       serviceCategory: "DL/BGL",
       phoneNumber: "",
@@ -226,7 +226,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     },
     {
       id: "admin-dl-2",
-      name: "Admin DL/BGL 2",
+      name: "Admin Icha (DL)",
       role: "Admin DL/BGL",
       serviceCategory: "DL/BGL",
       phoneNumber: "",
@@ -238,7 +238,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     },
     {
       id: "admin-account",
-      name: "Admin Akun",
+      name: "Admin Jual Beli Akun",
       role: "Admin Jual Beli Akun",
       serviceCategory: "Akun",
       phoneNumber: "",

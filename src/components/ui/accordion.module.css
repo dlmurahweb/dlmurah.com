@@ -1,0 +1,35 @@
+.trigger[data-state="open"] .icon {
+  transform: rotate(180deg);
+}
+
+.content[data-state="open"] {
+  animation: accordion-open var(--duration-base) var(--ease-out-quart);
+}
+
+.content[data-state="closed"] {
+  animation: accordion-close var(--duration-base) var(--ease-out-quart);
+}
+
+@keyframes accordion-open {
+  from {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+
+  to {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-close {
+  from {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+
+  to {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+}

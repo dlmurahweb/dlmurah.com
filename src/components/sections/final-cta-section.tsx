@@ -18,6 +18,7 @@ export function FinalCtaSection({
     <section className="section-shell pb-20 sm:pb-28">
       <AngularFrame
         accent
+        data-motion-reveal
         className="relative isolate overflow-hidden bg-surface-glass px-6 py-12 sm:px-10 lg:px-14 lg:py-16"
       >
         <div

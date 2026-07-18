@@ -128,16 +128,16 @@ export default async function Home() {
       />
       <main id="main-content" className="site-shell">
         <HeroSection homepage={data.homepage} features={data.features} />
+        <AdminsSection homepage={data.homepage} admins={data.admins} />
+        <ChannelsSection homepage={data.homepage} channels={data.channels} />
         <StatisticsSection statistics={data.statistics} />
         <ServicesSection
           homepage={data.homepage}
           services={data.services}
           admins={data.admins}
         />
-        <AdminsSection homepage={data.homepage} admins={data.admins} />
         <ProcessSection homepage={data.homepage} steps={data.processSteps} />
         <FeaturesSection homepage={data.homepage} features={data.features} />
-        <ChannelsSection homepage={data.homepage} channels={data.channels} />
         <AboutSection homepage={data.homepage} />
         <FaqSection faqs={data.faqs} homepage={data.homepage} />
         <FinalCtaSection homepage={data.homepage} channel={primaryChannel} />

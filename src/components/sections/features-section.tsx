@@ -13,7 +13,10 @@ export function FeaturesSection({
   return (
     <section className="border-y border-border bg-[#071044] section-space">
       <div className="section-shell grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <div className="relative min-h-80 overflow-hidden border border-border bg-background-secondary p-8 sm:min-h-96">
+        <div
+          data-motion-reveal
+          className="feature-visual relative min-h-80 overflow-hidden border border-border bg-background-secondary p-8 sm:min-h-96"
+        >
           <div
             className="absolute inset-10 rotate-45 border border-brand-blue/25"
             aria-hidden="true"
@@ -35,7 +38,11 @@ export function FeaturesSection({
             title={homepage.featuresHeading}
             description={homepage.featuresDescription}
           />
-          <ol className="mt-10 border-y border-border/80">
+          <ol
+            className="mt-10 border-y border-border/80"
+            data-motion-reveal
+            data-motion-stagger
+          >
             {features.map((feature, index) => (
               <FeatureCard
                 key={feature.id}

@@ -14,7 +14,7 @@ export function SurfaceCard({
   return (
     <article
       className={cn(
-        "border border-border bg-surface text-card-foreground",
+        "surface-card border border-border bg-surface text-card-foreground",
         interactive && "surface-card-interactive",
         className,
       )}

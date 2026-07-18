@@ -17,6 +17,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div
+      data-motion-reveal
       className={cn(
         "max-w-3xl",
         align === "center" && "mx-auto text-center",

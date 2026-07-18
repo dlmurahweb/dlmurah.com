@@ -17,7 +17,7 @@ export function FaqSection({
   return (
     <section id="faq" className="section-space">
       <div className="section-shell grid gap-12 lg:grid-cols-[0.68fr_1.32fr]">
-        <div>
+        <div data-motion-reveal>
           <p className="text-xs font-extrabold tracking-[0.16em] text-brand-cyan uppercase">
             {homepage.faqEyebrow}
           </p>
@@ -29,7 +29,12 @@ export function FaqSection({
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="border-t border-border">
+        <Accordion
+          type="single"
+          collapsible
+          className="border-t border-border"
+          data-motion-reveal
+        >
           {faqs.map((faq) => (
             <AccordionItem key={faq.id} value={faq.id}>
               <AccordionTrigger

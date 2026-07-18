@@ -17,7 +17,7 @@ export function AboutSection({ homepage }: { homepage: HomePageContent }) {
       className="border-y border-border bg-background-secondary/45 section-space"
     >
       <div className="section-shell grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-        <div>
+        <div data-motion-reveal>
           <p className="text-xs font-extrabold tracking-[0.16em] text-brand-cyan uppercase">
             {homepage.aboutEyebrow}
           </p>
@@ -29,7 +29,7 @@ export function AboutSection({ homepage }: { homepage: HomePageContent }) {
           </div>
         </div>
 
-        <AngularFrame accent className="p-7 sm:p-9">
+        <AngularFrame accent className="p-7 sm:p-9" data-motion-reveal>
           <p className="font-heading text-sm font-bold tracking-[0.12em] text-brand-ice uppercase">
             {homepage.aboutValuesHeading}
           </p>

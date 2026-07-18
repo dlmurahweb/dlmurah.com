@@ -39,7 +39,7 @@ export function ServiceCard({
 
       <div className="mt-7">
         {href ? (
-          <Button variant="ghost" className="px-0 text-brand-cyan" asChild>
+          <Button variant="ghost" className="text-brand-cyan" asChild>
             <a
               href={href}
               target="_blank"
@@ -56,7 +56,7 @@ export function ServiceCard({
             </a>
           </Button>
         ) : (
-          <Button variant="ghost" className="px-0" disabled>
+          <Button variant="ghost" disabled>
             {homepage.inactiveContactLabel}
           </Button>
         )}
