@@ -160,27 +160,27 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
   services: [
     {
       id: "service-buy-dl",
-      title: "Beli DL/BGL",
+      title: "WENLY ( ADMIN DL )",
       slug: "beli-dl-bgl",
       shortDescription:
-        "Hubungi admin untuk menanyakan ketersediaan, harga, dan proses pembelian DL atau BGL.",
+        "Hubungi admin jika ingin melakukan transaksi jual/beli DL kalian.",
       iconKey: "vault",
       whatsappAdminId: "admin-dl-1",
       whatsappPrefilledMessage:
-        "Halo Admin DLMURAH, saya ingin menanyakan layanan beli DL/BGL.",
+        "Halo Wenly, saya ingin melakukan transaksi jual/beli DL.",
       order: 1,
       isEnabled: true,
     },
     {
       id: "service-sell-dl",
-      title: "Jual DL/BGL",
+      title: "ICHA ( ADMIN DL )",
       slug: "jual-dl-bgl",
       shortDescription:
-        "Tawarkan DL atau BGL kepada admin dan konfirmasikan jumlah serta harga yang tersedia.",
+        "Hubungi admin jika ingin melakukan transaksi jual/beli DL kalian.",
       iconKey: "exchange",
       whatsappAdminId: "admin-dl-2",
       whatsappPrefilledMessage:
-        "Halo Admin DLMURAH, saya ingin menanyakan layanan jual DL/BGL.",
+        "Halo Icha, saya ingin melakukan transaksi jual/beli DL.",
       order: 2,
       isEnabled: true,
     },
@@ -206,7 +206,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
       serviceCategory: "DL/BGL",
       phoneNumber: "",
       prefilledMessage:
-        "Halo Admin DLMURAH, saya ingin menanyakan layanan beli DL/BGL.",
+        "Halo Wenly, saya ingin melakukan transaksi jual/beli DL.",
       availabilityLabel: "Nomor segera diperbarui",
       order: 1,
       isActive: false,
@@ -218,7 +218,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
       serviceCategory: "DL/BGL",
       phoneNumber: "",
       prefilledMessage:
-        "Halo Admin DLMURAH, saya ingin menanyakan layanan jual DL/BGL.",
+        "Halo Icha, saya ingin melakukan transaksi jual/beli DL.",
       availabilityLabel: "Nomor segera diperbarui",
       order: 2,
       isActive: false,

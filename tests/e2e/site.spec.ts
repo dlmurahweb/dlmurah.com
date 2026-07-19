@@ -171,8 +171,8 @@ test("services exclude transaction assistance", async ({ page }) => {
   const serviceHeadings = page.locator("#layanan h3");
   await expect(serviceHeadings).toHaveCount(3);
   await expect(serviceHeadings).toHaveText([
-    "Beli DL/BGL",
-    "Jual DL/BGL",
+    "WENLY ( ADMIN DL )",
+    "ICHA ( ADMIN DL )",
     "Jual Beli Akun",
   ]);
   await expect(page.getByText("Bantuan Transaksi")).toHaveCount(0);
