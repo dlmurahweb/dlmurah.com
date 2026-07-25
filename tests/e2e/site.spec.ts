@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+import { SITE_URL } from "../../src/lib/constants";
 import {
   PRIVACY_POLICY_METADATA,
   TERMS_POLICY_METADATA,
@@ -445,7 +446,24 @@ test("metadata, structured data, images, and security headers are valid", async 
 
   await expect(page.locator("link[rel='canonical']")).toHaveAttribute(
     "href",
-    /^https?:\/\//,
+    SITE_URL,
+  );
+  await expect(page.locator("meta[property='og:url']")).toHaveAttribute(
+    "content",
+    SITE_URL,
+  );
+  await expect(page.locator("meta[property='og:image']")).toHaveAttribute(
+    "content",
+    new RegExp(`^${SITE_URL}/opengraph-image`),
+  );
+  await expect(page.locator("meta[name='twitter:image']")).toHaveAttribute(
+    "content",
+    new RegExp(`^${SITE_URL}/twitter-image`),
+  );
+  await expect(page.locator("link[rel='icon']")).not.toHaveCount(0);
+  await expect(page.locator("link[rel='apple-touch-icon']")).toHaveAttribute(
+    "href",
+    /^\/apple-icon\.png/,
   );
   const structuredDataScript = page.locator(
     "script[type='application/ld+json']",
@@ -477,6 +495,45 @@ test("metadata, structured data, images, and security headers are valid", async 
       }).length,
   );
   expect(brokenImages).toBe(0);
+});
+
+test("SEO discovery endpoints use the canonical production origin", async ({
+  request,
+}) => {
+  const robotsResponse = await request.get("/robots.txt");
+  expect(robotsResponse.ok()).toBe(true);
+  expect(robotsResponse.headers()["content-type"]).toContain("text/plain");
+  const robots = await robotsResponse.text();
+  expect(robots).toContain(`Host: ${SITE_URL}`);
+  expect(robots).toContain(`Sitemap: ${SITE_URL}/sitemap.xml`);
+  expect(robots).not.toContain("localhost");
+
+  const sitemapResponse = await request.get("/sitemap.xml");
+  expect(sitemapResponse.ok()).toBe(true);
+  expect(sitemapResponse.headers()["content-type"]).toContain(
+    "application/xml",
+  );
+  const sitemap = await sitemapResponse.text();
+  expect(sitemap).toContain(`<loc>${SITE_URL}/</loc>`);
+  expect(sitemap).toContain(
+    `<loc>${SITE_URL}${PRIVACY_POLICY_METADATA.canonicalPath}</loc>`,
+  );
+  expect(sitemap).toContain(
+    `<loc>${SITE_URL}${TERMS_POLICY_METADATA.canonicalPath}</loc>`,
+  );
+  expect(sitemap).not.toContain("localhost");
+
+  for (const [path, contentType] of [
+    ["/favicon.ico", /^image\/(?:vnd\.microsoft\.icon|x-icon)/],
+    ["/icon.png", /^image\/png/],
+    ["/apple-icon.png", /^image\/png/],
+    ["/opengraph-image", /^image\/png/],
+    ["/twitter-image", /^image\/png/],
+  ] as const) {
+    const response = await request.get(path);
+    expect(response.ok(), `${path} should return 200`).toBe(true);
+    expect(response.headers()["content-type"]).toMatch(contentType);
+  }
 });
 
 test("homepage has no browser console errors", async ({ page }) => {

@@ -61,6 +61,7 @@ Salin `.env.example` menjadi `.env.local`. Jangan commit token atau secret.
 | `CONTENTFUL_PREVIEW_SECRET`       | Server      | Secret untuk preview mode                    |
 | `CONTENTFUL_REVALIDATE_SECRET`    | Server      | Secret webhook revalidation                  |
 | `CONTENTFUL_MANAGEMENT_TOKEN`     | Tool lokal  | Token untuk menjalankan provisioning         |
+| `GOOGLE_SITE_VERIFICATION`        | Server      | Token verifikasi Google Search Console       |
 | `NEXT_PUBLIC_SITE_URL`            | Publik      | Origin kanonis: `https://www.dlmurah.com`    |
 | `NEXT_PUBLIC_GA_ID`               | Publik      | ID Google Analytics opsional                 |
 

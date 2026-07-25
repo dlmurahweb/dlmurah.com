@@ -1,3 +1,5 @@
+export const SITE_URL = "https://www.dlmurah.com";
+
 export const SITE_DEFAULTS = {
   name: "DLMURAH",
   title: "DLMURAH — Jual Beli DL, BGL, dan Akun",

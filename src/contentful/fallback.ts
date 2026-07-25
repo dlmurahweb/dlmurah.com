@@ -1,5 +1,6 @@
 import { BLOCKS, type Document } from "@contentful/rich-text-types";
 
+import { SITE_URL } from "@/lib/constants";
 import type { HomePageData } from "@/types/site";
 
 export function createRichTextDocument(text: string): Document {
@@ -37,7 +38,7 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
     defaultSeoTitle: "DLMURAH — Jual Beli DL, BGL, dan Akun",
     defaultSeoDescription:
       "Hubungi admin DLMURAH untuk layanan jual beli DL/BGL, transaksi akun, dan informasi terbaru melalui WhatsApp.",
-    siteUrl: "https://www.dlmurah.com",
+    siteUrl: SITE_URL,
     footerNavigationHeading: "Navigasi",
     footerAdminsHeading: "Admin WhatsApp",
     footerChannelsHeading: "Saluran",

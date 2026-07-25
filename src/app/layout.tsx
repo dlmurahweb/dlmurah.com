@@ -44,6 +44,9 @@ export const metadata: Metadata = {
     title: SITE_DEFAULTS.title,
     description: SITE_DEFAULTS.description,
   },
+  verification: env.GOOGLE_SITE_VERIFICATION
+    ? { google: env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 export const viewport: Viewport = {

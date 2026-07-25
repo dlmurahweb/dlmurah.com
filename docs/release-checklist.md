@@ -37,8 +37,10 @@
 - [x] Homepage 200
 - [x] Privacy dan Terms 200
 - [x] Missing route 404 dengan desain khusus
-- [x] `robots.txt` dan `sitemap.xml` valid
-- [x] Canonical/OG/Twitter memakai domain produksi
+- [ ] `robots.txt` dan `sitemap.xml` memakai domain produksi setelah redeploy
+- [ ] Canonical/OG/Twitter memakai domain produksi setelah redeploy
+- [ ] Google Search Console ownership terverifikasi
+- [ ] `https://www.dlmurah.com/sitemap.xml` disubmit ke Search Console
 - [x] Seluruh navigation anchor bekerja
 - [ ] Semua CTA WhatsApp membuka admin yang benar
 - [ ] Prefilled message benar

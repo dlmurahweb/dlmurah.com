@@ -15,16 +15,17 @@
 
 Tambahkan untuk Production, Preview, dan Development sesuai kebutuhan:
 
-| Variable                          | Production | Preview | Catatan                                   |
-| --------------------------------- | ---------- | ------- | ----------------------------------------- |
-| `CONTENTFUL_SPACE_ID`             | Wajib      | Wajib   | Space DLMURAH                             |
-| `CONTENTFUL_ACCESS_TOKEN`         | Wajib      | Wajib   | Delivery API token                        |
-| `CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Opsional   | Wajib   | Preview API token                         |
-| `CONTENTFUL_ENVIRONMENT`          | Wajib      | Wajib   | Biasanya `master`                         |
-| `CONTENTFUL_LOCALE`               | Wajib      | Wajib   | `id-ID` setelah locale tersedia           |
-| `CONTENTFUL_PREVIEW_SECRET`       | Wajib      | Wajib   | Random secret, jangan gunakan ulang       |
-| `CONTENTFUL_REVALIDATE_SECRET`    | Wajib      | Wajib   | Random secret khusus webhook              |
-| `NEXT_PUBLIC_SITE_URL`            | Wajib      | Sesuai  | `https://www.dlmurah.com` pada Production |
+| Variable                          | Production | Preview  | Catatan                                   |
+| --------------------------------- | ---------- | -------- | ----------------------------------------- |
+| `CONTENTFUL_SPACE_ID`             | Wajib      | Wajib    | Space DLMURAH                             |
+| `CONTENTFUL_ACCESS_TOKEN`         | Wajib      | Wajib    | Delivery API token                        |
+| `CONTENTFUL_PREVIEW_ACCESS_TOKEN` | Opsional   | Wajib    | Preview API token                         |
+| `CONTENTFUL_ENVIRONMENT`          | Wajib      | Wajib    | Biasanya `master`                         |
+| `CONTENTFUL_LOCALE`               | Wajib      | Wajib    | `id-ID` setelah locale tersedia           |
+| `CONTENTFUL_PREVIEW_SECRET`       | Wajib      | Wajib    | Random secret, jangan gunakan ulang       |
+| `CONTENTFUL_REVALIDATE_SECRET`    | Wajib      | Wajib    | Random secret khusus webhook              |
+| `GOOGLE_SITE_VERIFICATION`        | Wajib      | Opsional | Token verifikasi Search Console           |
+| `NEXT_PUBLIC_SITE_URL`            | Wajib      | Sesuai   | `https://www.dlmurah.com` pada Production |
 
 `CONTENTFUL_MANAGEMENT_TOKEN` tidak boleh ditambahkan ke Vercel. Token tersebut
 hanya dipakai secara lokal untuk provisioning.
