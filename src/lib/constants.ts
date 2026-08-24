@@ -1,5 +1,10 @@
 export const SITE_URL = "https://www.dlmurah.com";
 
+export const HERO_CHANNEL_CTA = {
+  label: "CEK SALURAN",
+  target: "#saluran",
+} as const;
+
 export const SITE_DEFAULTS = {
   name: "DLMURAH",
   title: "DLMURAH — Jual Beli DL, BGL, dan Akun",

@@ -5,6 +5,7 @@ import { CrystalDecoration } from "@/components/brand/crystal-decoration";
 import { EnergyLine } from "@/components/brand/energy-line";
 import { HeroAmbientMotion } from "@/components/brand/hero-ambient-motion";
 import { Button } from "@/components/ui/button";
+import { HERO_CHANNEL_CTA } from "@/lib/constants";
 import type { Feature, HomePageContent } from "@/types/site";
 
 export function HeroSection({
@@ -53,12 +54,12 @@ export function HeroSection({
             </Button>
             <Button variant="secondary" size="lg" asChild>
               <a
-                href={homepage.secondaryCtaTarget}
+                href={HERO_CHANNEL_CTA.target}
                 data-analytics-event="navigation_click"
                 data-source="hero_secondary"
-                data-label={homepage.secondaryCtaLabel}
+                data-label={HERO_CHANNEL_CTA.label}
               >
-                {homepage.secondaryCtaLabel}
+                {HERO_CHANNEL_CTA.label}
                 <ArrowDown aria-hidden="true" />
               </a>
             </Button>

@@ -1,6 +1,6 @@
 import { BLOCKS, type Document } from "@contentful/rich-text-types";
 
-import { SITE_URL } from "@/lib/constants";
+import { HERO_CHANNEL_CTA, SITE_URL } from "@/lib/constants";
 import type { HomePageData } from "@/types/site";
 
 export function createRichTextDocument(text: string): Document {
@@ -98,8 +98,8 @@ export const FALLBACK_HOME_PAGE_DATA: HomePageData = {
       "Hubungi admin DLMURAH melalui WhatsApp untuk jual beli DL/BGL, transaksi akun, dan kebutuhan layanan lainnya.",
     primaryCtaLabel: "Mulai Transaksi",
     primaryCtaTarget: "#pilih-admin",
-    secondaryCtaLabel: "Lihat Layanan",
-    secondaryCtaTarget: "#layanan",
+    secondaryCtaLabel: HERO_CHANNEL_CTA.label,
+    secondaryCtaTarget: HERO_CHANNEL_CTA.target,
     navigationCtaLabel: "Pilih Admin",
     navigationCtaCompactLabel: "Admin",
     servicesEyebrow: "PILIH KEBUTUHAN",

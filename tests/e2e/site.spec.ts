@@ -144,6 +144,19 @@ test("generic CTAs route to admin selection instead of opening WhatsApp", async 
   ).toHaveAttribute("href", "#pilih-admin");
 });
 
+test("hero channel CTA links to the channels section", async ({ page }) => {
+  await page.goto("/");
+
+  const channelCta = page.locator(
+    "[data-source='hero_secondary'][data-label='CEK SALURAN']",
+  );
+
+  await expect(channelCta).toHaveText("CEK SALURAN");
+  await expect(channelCta).toHaveAttribute("href", "#saluran");
+  await channelCta.click();
+  await expect(page).toHaveURL(/#saluran$/);
+});
+
 test("admin contacts and channels lead the homepage content", async ({
   page,
 }) => {
